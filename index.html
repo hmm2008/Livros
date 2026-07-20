@@ -1,0 +1,105 @@
+<script>
+    // COLOCA AQUI O TEU LINK DO APPS SCRIPT GERADO NO PASSO 2
+    const API_URL = "https://script.google.com/macros/s/AKfycbyWuofPhdyaRQrcATTguJhJZt3bewrobaU2ZSk0HJ712l4iqgxegnQxGgwa6HSVBnjh/exec";
+
+    function exibirAlerta(mensagem, tipo) {
+      const alertBox = document.getElementById('alertBox');
+      alertBox.textContent = mensagem;
+      alertBox.className = 'mb-6 p-4 rounded-md text-sm text-center font-medium transition-all duration-300 block';
+      
+      if (tipo === 'sucesso') {
+        alertBox.classList.add('bg-green-100', 'text-green-800', 'border-green-200');
+        alertBox.classList.remove('bg-red-100', 'text-red-800', 'border-red-200');
+      } else {
+        alertBox.classList.add('bg-red-100', 'text-red-800', 'border-red-200');
+        alertBox.classList.remove('bg-green-100', 'text-green-800', 'border-green-200');
+      }
+      
+      setTimeout(() => { alertBox.classList.add('hidden'); alertBox.classList.remove('block'); }, 5000);
+    }
+
+    async function acionarPesquisa() {
+      const isbnVal = document.getElementById('isbn').value.trim();
+      if (!isbnVal) {
+        exibirAlerta('Por favor, insere um número ISBN válido.', 'erro');
+        return;
+      }
+      
+      document.getElementById('spinnerPesquisa').classList.remove('hidden');
+      document.getElementById('btnPesquisar').disabled = true;
+
+      try {
+        // Envio do pedido HTTP POST para o Google Apps Script usando content-type plain para evitar bloqueios de CORS
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ acao: 'pesquisar', isbn: isbnVal })
+        });
+        
+        const resultado = await response.json();
+        
+        if (resultado.titulo) {
+          document.getElementById('titulo').value = resultado.titulo || '';
+          document.getElementById('autor').value = resultado.autor || '';
+          document.getElementById('editora').value = resultado.editora || '';
+          document.getElementById('preco').value = resultado.preco || '';
+          exibirAlerta('Dados do livro encontrados e pré-preenchidos.', 'sucesso');
+        } else {
+          exibirAlerta('Não foi possível extrair dados automaticamente. Podes preencher manualmente.', 'erro');
+        }
+      } catch (error) {
+        exibirAlerta('Erro de servidor ao tentar pesquisar.', 'erro');
+      } finally {
+        document.getElementById('spinnerPesquisa').classList.add('hidden');
+        document.getElementById('btnPesquisar').disabled = false;
+      }
+    }
+
+    async function acionarGravacao() {
+      const isbnVal = document.getElementById('isbn').value.trim();
+      const tituloVal = document.getElementById('titulo').value.trim();
+      
+      if (!isbnVal || !tituloVal) {
+        exibirAlerta('Os campos "Código ISBN" e "Título do Livro" são de preenchimento obrigatório.', 'erro');
+        return;
+      }
+
+      const dadosLivro = {
+        isbn: isbnVal.replace(/[-\s]/g, ''),
+        titulo: tituloVal,
+        autor: document.getElementById('autor').value.trim(),
+        editora: document.getElementById('editora').value.trim(),
+        preco: document.getElementById('preco').value.trim(),
+        genero: document.getElementById('genero').value,
+        estado: document.getElementById('estado').value,
+        classificacao: document.getElementById('classificacao').value,
+        notas: document.getElementById('notas').value.trim()
+      };
+
+      document.getElementById('spinnerGravar').classList.remove('hidden');
+      document.getElementById('btnGravar').disabled = true;
+
+      try {
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ acao: 'gravar', dados: dadosLivro })
+        });
+        
+        const resposta = await response.json();
+        
+        if (resposta.sucesso) {
+          exibirAlerta(resposta.mensagem, 'sucesso');
+          document.getElementById('formLivro').reset();
+          document.getElementById('isbn').value = '';
+        } else {
+          exibirAlerta(resposta.mensagem, 'erro');
+        }
+      } catch (error) {
+        exibirAlerta('Erro de ligação ao tentar gravar.', 'erro');
+      } finally {
+        document.getElementById('spinnerGravar').classList.add('hidden');
+        document.getElementById('btnGravar').disabled = false;
+      }
+    }
+  </script>
