@@ -11,7 +11,7 @@
         extend: {
           colors: {
             brand: { 50: '#eff6ff', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a' },
-            stone: { 50: '#fafaf9', 100: '#f5f5f4', 200: '#e7e5e4', 300: '#d6d3d1', 500: '#78716c', 800: '#292524', 900: '#1c1917' }
+            stone: { 50: '#fafaf9', 100: '#f5f5f4', 200: '#e7e5e4', 300: '#d6d3d1', 400: '#a8a29e', 500: '#78716c', 800: '#292524', 900: '#1c1917' }
           }
         }
       }
@@ -28,7 +28,7 @@
         <p class="text-xs text-brand-100 mt-1">Manuel Francisco 📚</p>
       </div>
       <nav class="p-4 space-y-1">
-        <button onclick="mudarSeparador('inicio')" id="nav-inicio" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium bg-brand-800 text-white transition-colors">
+        <button onclick="mudarSeparador('inicio')" id="nav-inicio" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-brand-100 hover:bg-brand-600/50 transition-colors">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
           Início
         </button>
@@ -36,13 +36,13 @@
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
           Biblioteca
         </button>
-        <button onclick="mudarSeparador('adicionar')" id="nav-adicionar" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-brand-100 hover:bg-brand-600/50 transition-colors">
+        <button onclick="mudarSeparador('adicionar')" id="nav-adicionar" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium bg-brand-800 text-white transition-colors">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
           Adicionar Livro
         </button>
       </nav>
     </div>
-    <div class="p-4 border-t border-brand-600/55 text-xs text-brand-200">v1.0 • 2026 Manuel Francisco</div>
+    <div class="p-4 border-t border-brand-600/50 text-xs text-brand-200">v1.0 • 2026 Manuel Francisco</div>
   </aside>
 
   <!-- CONTEÚDO PRINCIPAL -->
@@ -51,7 +51,7 @@
     <!-- BARRA DE TOPO -->
     <header class="bg-white border-b border-stone-200 h-16 px-6 flex items-center justify-between sticky top-0 z-20 shadow-sm">
       <div class="flex items-center gap-2">
-        <h1 class="text-base font-medium text-stone-900">Bem-vindo à Biblioteca Pessoal de Manuel Francisco 📚</h1>
+        <h1 class="text-base font-medium text-stone-900">Biblioteca Pessoal de Manuel Francisco 📚</h1>
       </div>
       <button onclick="mudarSeparador('adicionar')" class="px-4 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition-colors text-xs font-semibold flex items-center gap-2 shadow-sm">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
@@ -59,13 +59,11 @@
       </button>
     </header>
 
-    <main class="p-6 md:p-8 flex-1 max-w-6xl w-full mx-auto">
+    <main class="p-6 md:p-8 flex-1 max-w-5xl w-full mx-auto">
       <div id="alertBox" class="hidden mb-6 p-4 rounded-lg text-sm text-center font-medium transition-all duration-300"></div>
 
-      <!-- ================= SEPARADOR: INÍCIO (DASHBOARD) ================= -->
-      <section id="sec-inicio" class="block space-y-8">
-        
-        <!-- Barra de Pesquisa Rápida Global -->
+      <!-- ================= SEPARADOR: INÍCIO ================= -->
+      <section id="sec-inicio" class="hidden space-y-8">
         <div class="relative max-w-xl">
           <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -73,56 +71,30 @@
           <input type="text" id="inputPesquisaGlobal" oninput="filtrarLivrosDashboard(this.value)" placeholder="Pesquisar livros por título, autor, ISBN..." class="w-full pl-10 pr-4 py-2.5 bg-white border border-stone-200 rounded-lg text-sm outline-none focus:border-brand-500 shadow-sm">
         </div>
 
-        <!-- Cartões de Estatísticas -->
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-          <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm flex flex-col justify-between">
-            <div class="flex items-center justify-between text-brand-600 mb-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg><span id="stat-total" class="text-lg font-bold text-stone-900">0</span></div>
-            <span class="text-xs text-stone-500 font-medium">Total de Livros</span>
-          </div>
-          <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm flex flex-col justify-between">
-            <div class="flex items-center justify-between text-emerald-600 mb-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><span id="stat-disponiveis" class="text-lg font-bold text-stone-900">0</span></div>
-            <span class="text-xs text-stone-500 font-medium">Disponíveis</span>
-          </div>
-          <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm flex flex-col justify-between">
-            <div class="flex items-center justify-between text-amber-600 mb-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><span id="stat-aler" class="text-lg font-bold text-stone-900">0</span></div>
-            <span class="text-xs text-stone-500 font-medium">A Ler</span>
-          </div>
-          <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm flex flex-col justify-between">
-            <div class="flex items-center justify-between text-rose-600 mb-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg><span id="stat-abandonados" class="text-lg font-bold text-stone-900">0</span></div>
-            <span class="text-xs text-stone-500 font-medium">Abandonados</span>
-          </div>
-          <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm flex flex-col justify-between">
-            <div class="flex items-center justify-between text-purple-600 mb-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg><span id="stat-lidos" class="text-lg font-bold text-stone-900">0</span></div>
-            <span class="text-xs text-stone-500 font-medium">Lidos</span>
-          </div>
-          <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm flex flex-col justify-between">
-            <div class="flex items-center justify-between text-stone-600 mb-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg><span id="stat-pendentes" class="text-lg font-bold text-stone-900">0</span></div>
-            <span class="text-xs text-stone-500 font-medium">Pendentes</span>
-          </div>
+          <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm"><span class="text-xs text-stone-500 font-medium">Total</span><p id="stat-total" class="text-xl font-bold text-stone-900 mt-2">0</p></div>
+          <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm"><span class="text-xs text-stone-500 font-medium">Disponíveis</span><p id="stat-disponiveis" class="text-xl font-bold text-emerald-600 mt-2">0</p></div>
+          <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm"><span class="text-xs text-stone-500 font-medium">A Ler</span><p id="stat-aler" class="text-xl font-bold text-amber-600 mt-2">0</p></div>
+          <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm"><span class="text-xs text-stone-500 font-medium">Abandonados</span><p id="stat-abandonados" class="text-xl font-bold text-rose-600 mt-2">0</p></div>
+          <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm"><span class="text-xs text-stone-500 font-medium">Lidos</span><p id="stat-lidos" class="text-xl font-bold text-purple-600 mt-2">0</p></div>
+          <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm"><span class="text-xs text-stone-500 font-medium">Pendentes</span><p id="stat-pendentes" class="text-xl font-bold text-stone-600 mt-2">0</p></div>
         </div>
 
-        <!-- Secção de Géneros / Temas -->
         <div>
           <h3 class="text-sm font-semibold text-stone-700 mb-3">Por Tema / Género</h3>
-          <div id="listaTemas" class="flex flex-wrap gap-2">
-            <!-- Gerado Dinamicamente -->
-          </div>
+          <div id="listaTemas" class="flex flex-wrap gap-2"></div>
         </div>
 
-        <!-- Adicionados Recentemente -->
         <div>
           <div class="flex justify-between items-center mb-4">
             <h3 class="text-sm font-semibold text-stone-700">Adicionados Recentemente</h3>
             <button onclick="mudarSeparador('colecao')" class="text-xs font-medium text-brand-600 hover:underline">Ver todos →</button>
           </div>
-          <div id="grelhaRecentes" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-            <!-- Gerado Dinamicamente -->
-          </div>
+          <div id="grelhaRecentes" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4"></div>
         </div>
-
       </section>
 
-      <!-- ================= SEPARADOR: BIBLIOTECA COMPLETA ================= -->
+      <!-- ================= SEPARADOR: BIBLIOTECA ================= -->
       <section id="sec-colecao" class="hidden space-y-6">
         <div class="flex justify-between items-center">
           <h2 class="text-lg font-semibold text-stone-900">A Minha Coleção Completa</h2>
@@ -130,73 +102,132 @@
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
           </button>
         </div>
-
         <div id="loadingGrid" class="py-12 flex flex-col items-center justify-center text-stone-400">
           <svg class="animate-spin h-8 w-8 mb-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
           <p>A carregar base de dados...</p>
         </div>
-
         <div id="grelhaLivros" class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-        
         <div id="emptyState" class="hidden py-12 text-center border-2 border-dashed border-stone-200 rounded-xl bg-white">
           <p class="text-stone-500 mb-4 text-sm">Ainda não tens livros na tua coleção.</p>
           <button onclick="mudarSeparador('adicionar')" class="text-brand-600 font-medium text-sm hover:underline">Adicionar o primeiro livro</button>
         </div>
       </section>
 
-      <!-- ================= SEPARADOR: ADICIONAR LIVRO ================= -->
-      <section id="sec-adicionar" class="hidden max-w-3xl mx-auto bg-white rounded-xl shadow-sm border border-stone-200 p-6 sm:p-8">
-        <h2 class="text-lg font-semibold text-stone-900 mb-6">Registar Novo Livro</h2>
-        
-        <div class="mb-6 p-4 bg-stone-50 rounded-lg border border-stone-200 flex flex-col sm:flex-row gap-4 items-end">
-          <div class="w-full">
-            <label class="block text-xs font-semibold text-stone-500 uppercase tracking-wider mb-2">Código ISBN (13 Dígitos)</label>
-            <input type="text" id="isbn" placeholder="Ex: 9789897874208" class="w-full px-4 py-2 border border-stone-300 rounded-lg text-sm outline-none focus:border-brand-500">
-          </div>
-          <button type="button" id="btnPesquisar" onclick="acionarPesquisa()" class="w-full sm:w-auto px-6 py-2 bg-stone-800 text-white rounded-lg hover:bg-stone-700 transition-colors text-sm font-medium flex justify-center gap-2 shrink-0">
-            <span>Pesquisar ISBN</span>
-            <svg id="spinnerPesquisa" class="hidden animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-          </button>
+      <!-- ================= SEPARADOR: ADICIONAR LIVRO (EXATO À IMAGEM) ================= -->
+      <section id="sec-adicionar" class="block bg-white rounded-xl shadow-sm border border-stone-200 p-6 sm:p-8 space-y-6">
+        <div>
+          <h2 class="text-lg font-semibold text-stone-900">Adicionar Livro</h2>
+          <p class="text-xs text-stone-500 mt-0.5">Insere o ISBN/EAN para pesquisar os dados automaticamente.</p>
         </div>
 
-        <form id="formLivro" class="flex flex-col md:flex-row gap-8">
-          <div class="w-full md:w-1/3 flex flex-col items-center shrink-0">
-            <div class="w-36 h-52 bg-stone-100 border border-stone-200 rounded-lg overflow-hidden flex items-center justify-center shadow-inner relative">
-              <img id="img_capa" src="" class="hidden w-full h-full object-cover">
-              <span id="txt_capa" class="text-stone-400 text-xs text-center p-2 font-medium">Sem<br>Capa</span>
+        <!-- Bloco de Pesquisa Online (Alternativa por Critérios) -->
+        <div class="p-4 bg-stone-50 rounded-xl border border-stone-200 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-stone-700 uppercase tracking-wider">Pesquisa Online</span>
+            <div class="flex gap-1.5 bg-stone-200 p-1 rounded-lg text-xs font-medium">
+              <button type="button" onclick="mudarTipoPesquisa('titulo')" id="btn-t-titulo" class="px-3 py-1 bg-white shadow-sm rounded-md text-stone-900 transition-all">Título</button>
+              <button type="button" onclick="mudarTipoPesquisa('autor')" id="btn-t-autor" class="px-3 py-1 text-stone-600 rounded-md transition-all">Autor</button>
+              <button type="button" onclick="mudarTipoPesquisa('editora')" id="btn-t-editora" class="px-3 py-1 text-stone-600 rounded-md transition-all">Editora</button>
             </div>
-            <div class="w-full mt-4">
-              <label class="block text-[10px] font-semibold text-stone-500 uppercase text-center mb-1">URL da Capa</label>
-              <input type="url" id="capa" placeholder="https://..." oninput="atualizarCapa('capa', 'img_capa', 'txt_capa')" class="w-full text-xs px-3 py-2 border border-stone-300 rounded-lg outline-none text-center">
+          </div>
+          <div class="flex gap-2">
+            <input type="text" id="termoPesquisaOnline" placeholder="Ex: O Nome da Rosa" class="w-full px-3.5 py-2 bg-white border border-stone-300 rounded-lg text-sm outline-none focus:border-brand-500">
+            <button type="button" onclick="acionarPesquisaOnline()" class="px-5 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition-colors text-sm font-medium shrink-0 flex items-center gap-2">
+              <span>Pesquisar</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Bloco de Pesquisa por ISBN / EAN -->
+        <div class="p-4 bg-stone-50 rounded-xl border border-stone-200 space-y-3">
+          <span class="text-xs font-semibold text-stone-700 uppercase tracking-wider">Pesquisa por ISBN / EAN</span>
+          <div class="flex gap-2">
+            <input type="text" id="isbn" placeholder="Ex: 9789720000000" class="w-full px-3.5 py-2 bg-white border border-stone-300 rounded-lg text-sm outline-none focus:border-brand-500">
+            <button type="button" id="btnPesquisar" onclick="acionarPesquisa()" class="px-5 py-2 bg-stone-800 text-white rounded-lg hover:bg-stone-700 transition-colors text-sm font-medium shrink-0 flex items-center gap-2">
+              <span>Pesquisar</span>
+              <svg id="spinnerPesquisa" class="hidden animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+            </button>
+          </div>
+          <div class="text-center my-1"><span class="text-[11px] text-stone-400 font-medium">ou</span></div>
+          <label class="border-2 border-dashed border-stone-300 rounded-xl p-3 flex items-center justify-center gap-2 text-xs font-medium text-stone-600 bg-white hover:bg-stone-50 cursor-pointer transition-colors">
+            <svg class="w-4 h-4 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path></svg>
+            <span>Fotografar ou carregar imagem do código de barras</span>
+            <input type="file" accept="image/*" class="hidden" onchange="alert('Módulo de leitura de código de barras simulado. Podes inserir o ISBN manualmente no campo acima.')">
+          </label>
+          <p class="text-[11px] text-stone-500 bg-blue-50 border border-blue-100 p-2.5 rounded-lg flex items-center gap-2">
+            <span>ℹ️</span> Livro não encontrado online. Podes preencher os dados manualmente abaixo.
+          </p>
+        </div>
+
+        <!-- Formulário de Dados do Livro Detalhado -->
+        <form id="formLivro" class="space-y-4 pt-2">
+          <h3 class="text-xs font-semibold text-stone-500 uppercase tracking-wider">Dados do Livro</h3>
+          <p class="text-xs text-stone-400 -mt-2">Preenche os campos manualmente.</p>
+
+          <div>
+            <label class="block text-xs font-semibold text-stone-700 uppercase mb-1">Título *</label>
+            <input type="text" id="titulo" required class="w-full px-3.5 py-2 border border-stone-300 rounded-lg text-sm outline-none focus:border-brand-500">
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div><label class="block text-xs font-semibold text-stone-700 uppercase mb-1">Autor(es)</label><input type="text" id="autor" class="w-full px-3.5 py-2 border border-stone-300 rounded-lg text-sm"></div>
+            <div><label class="block text-xs font-semibold text-stone-700 uppercase mb-1">Editora</label><input type="text" id="editora" class="w-full px-3.5 py-2 border border-stone-300 rounded-lg text-sm"></div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div><label class="block text-xs font-semibold text-stone-700 uppercase mb-1">Ano de Publicação</label><input type="text" id="ano" class="w-full px-3.5 py-2 border border-stone-300 rounded-lg text-sm"></div>
+            <div><label class="block text-xs font-semibold text-stone-700 uppercase mb-1">ISBN / EAN</label><input type="text" id="form_isbn_copia" class="w-full px-3.5 py-2 border border-stone-300 rounded-lg text-sm"></div>
+            <div><label class="block text-xs font-semibold text-stone-700 uppercase mb-1">Nº de Páginas</label><input type="text" id="paginas" class="w-full px-3.5 py-2 border border-stone-300 rounded-lg text-sm"></div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-stone-700 uppercase mb-1">Idioma</label>
+              <select id="idioma" class="w-full px-3.5 py-2 border border-stone-300 rounded-lg text-sm bg-white"><option value="Português">Português</option><option value="Inglês">Inglês</option><option value="Espanhol">Espanhol</option><option value="Outro">Outro</option></select>
+            </div>
+            <div><label class="block text-xs font-semibold text-stone-700 uppercase mb-1">Localização na Prateleira</label><input type="text" id="prateleira" placeholder="Ex: Prateleira 2" class="w-full px-3.5 py-2 border border-stone-300 rounded-lg text-sm"></div>
+            <div>
+              <label class="block text-xs font-semibold text-stone-700 uppercase mb-1">Tema / Categoria</label>
+              <select id="genero" class="w-full px-3.5 py-2 border border-stone-300 rounded-lg text-sm bg-white"><option value="">Selecionar tema...</option><option value="Ficção">Ficção</option><option value="Biografia">Biografia</option><option value="Técnico">Técnico</option><option value="História">História</option><option value="Romance">Romance</option><option value="Outro">Outro</option></select>
             </div>
           </div>
 
-          <div class="w-full md:w-2/3 space-y-4">
-            <div><label class="block text-xs font-semibold text-stone-500 uppercase mb-1">Título do Livro *</label><input type="text" id="titulo" required class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div><label class="block text-xs font-semibold text-stone-500 uppercase mb-1">Autor</label><input type="text" id="autor" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
-              <div><label class="block text-xs font-semibold text-stone-500 uppercase mb-1">Editora</label><input type="text" id="editora" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
+          <!-- Secção da Capa -->
+          <div class="p-4 bg-stone-50 rounded-xl border border-stone-200 flex flex-col sm:flex-row items-center gap-4">
+            <div class="w-20 h-28 bg-white border border-stone-200 rounded-lg overflow-hidden flex items-center justify-center shrink-0 shadow-inner">
+              <img id="img_capa" src="" class="hidden w-full h-full object-cover">
+              <span id="txt_capa" class="text-stone-400 text-[10px] text-center p-1">Sem Capa</span>
             </div>
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
-              <div><label class="block text-xs font-semibold text-stone-500 uppercase mb-1">Preço</label><input type="text" id="preco" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
-              <div><label class="block text-xs font-semibold text-stone-500 uppercase mb-1">Género</label>
-                <select id="genero" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white"><option value="">Selecione...</option><option value="Ficção">Ficção</option><option value="Biografia">Biografia</option><option value="Técnico">Técnico</option><option value="História">História</option><option value="Romance">Romance</option><option value="Outro">Outro</option></select>
+            <div class="w-full space-y-2">
+              <label class="block text-xs font-semibold text-stone-700 uppercase">Capa do Livro</label>
+              <div class="flex flex-wrap gap-2 text-xs font-medium text-brand-600">
+                <span class="cursor-pointer hover:underline" onclick="alert('Funcionalidade de colar imagem pronta via URL abaixo.')">📷 Colar imagem</span> • 
+                <span class="cursor-pointer hover:underline" onclick="document.getElementById('capa').focus()">🔗 URL manual</span>
               </div>
-              <div><label class="block text-xs font-semibold text-stone-500 uppercase mb-1">Estado</label>
-                <select id="estado" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white"><option value="Pendente">Pendente</option><option value="A Ler">A Ler</option><option value="Lido">Lido</option><option value="Abandonado">Abandonado</option></select>
-              </div>
+              <input type="url" id="capa" placeholder="https://exemplo.com/capa.jpg" oninput="atualizarCapa('capa', 'img_capa', 'txt_capa')" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-xs bg-white">
             </div>
-            <div><label class="block text-xs font-semibold text-stone-500 uppercase mb-1">Avaliação</label>
-              <select id="classificacao" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white"><option value="-">-</option><option value="1">1 Estrela</option><option value="2">2 Estrelas</option><option value="3">3 Estrelas</option><option value="4">4 Estrelas</option><option value="5">5 Estrelas</option></select>
+          </div>
+
+          <div><label class="block text-xs font-semibold text-stone-700 uppercase mb-1">Sinopse / Descrição</label><textarea id="sinopse" rows="3" class="w-full px-3.5 py-2 border border-stone-300 rounded-lg text-sm resize-none"></textarea></div>
+          <div><label class="block text-xs font-semibold text-stone-700 uppercase mb-1">Notas Pessoais</label><textarea id="notas" rows="2" class="w-full px-3.5 py-2 border border-stone-300 rounded-lg text-sm resize-none"></textarea></div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            <div>
+              <label class="block text-xs font-semibold text-stone-700 uppercase mb-1">Estado</label>
+              <select id="preco" class="w-full px-3.5 py-2 border border-stone-300 rounded-lg text-sm bg-white"><option value="Disponível">Disponível</option><option value="Emprestado">Emprestado</option><option value="Extraviado">Extraviado</option></select>
             </div>
-            <div><label class="block text-xs font-semibold text-stone-500 uppercase mb-1">Notas / Recensão</label><textarea id="notas" rows="2" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm resize-none"></textarea></div>
-            
-            <div class="pt-4 flex justify-end">
-              <button type="button" id="btnGravar" onclick="acionarGravacao()" class="px-6 py-2.5 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition-colors text-sm font-medium flex gap-2">
-                <span>Guardar na Coleção</span>
-                <svg id="spinnerGravar" class="hidden animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-              </button>
+            <div>
+              <label class="block text-xs font-semibold text-stone-700 uppercase mb-1">Estado de Leitura</label>
+              <select id="estado" class="w-full px-3.5 py-2 border border-stone-300 rounded-lg text-sm bg-white"><option value="Pendente">Não lido / Pendente</option><option value="A Ler">A Ler</option><option value="Lido">Lido</option><option value="Abandonado">Abandonado</option></select>
             </div>
+          </div>
+          <div><label class="block text-xs font-semibold text-stone-700 uppercase mb-1">Classificação (Estrelas)</label><select id="classificacao" class="w-full px-3.5 py-2 border border-stone-300 rounded-lg text-sm bg-white"><option value="-">-</option><option value="1">1 Estrela</option><option value="2">2 Estrelas</option><option value="3">3 Estrelas</option><option value="4">4 Estrelas</option><option value="5">5 Estrelas</option></select></div>
+
+          <div class="pt-6 border-t border-stone-200 flex justify-end">
+            <button type="button" id="btnGravar" onclick="acionarGravacao()" class="px-8 py-3 bg-brand-600 text-white rounded-xl hover:bg-brand-700 transition-colors text-sm font-semibold shadow-md flex items-center gap-2">
+              <span>Gravar na Coleção</span>
+              <svg id="spinnerGravar" class="hidden animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+            </button>
           </div>
         </form>
       </section>
@@ -236,9 +267,9 @@
             <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Editora</label><input type="text" id="ed_editora" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
           </div>
           <div class="grid grid-cols-3 gap-3">
-            <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Preço</label><input type="text" id="ed_preco" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
+            <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Preço / Estado</label><input type="text" id="ed_preco" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
             <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Género</label><select id="ed_genero" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white"><option value="Ficção">Ficção</option><option value="Biografia">Biografia</option><option value="Técnico">Técnico</option><option value="História">História</option><option value="Romance">Romance</option><option value="Outro">Outro</option></select></div>
-            <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Estado</label><select id="ed_estado" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white"><option value="Pendente">Pendente</option><option value="A Ler">A Ler</option><option value="Lido">Lido</option><option value="Abandonado">Abandonado</option></select></div>
+            <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Estado Leitura</label><select id="ed_estado" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white"><option value="Pendente">Pendente</option><option value="A Ler">A Ler</option><option value="Lido">Lido</option><option value="Abandonado">Abandonado</option></select></div>
           </div>
           <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Avaliação</label><select id="ed_classificacao" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white"><option value="-">-</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
           <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Notas</label><textarea id="ed_notas" rows="2" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm resize-none"></textarea></div>
@@ -259,8 +290,22 @@
     
     let colecaoGlobal = [];
     let linhaAtiva = null;
+    let tipoPesquisaAtual = 'titulo';
 
     document.addEventListener("DOMContentLoaded", () => { carregarColecao(); });
+
+    function mudarTipoPesquisa(tipo) {
+      tipoPesquisaAtual = tipo;
+      ['titulo', 'autor', 'editora'].forEach(t => {
+        const btn = document.getElementById('btn-t-' + t);
+        if (t === tipo) {
+          btn.className = "px-3 py-1 bg-white shadow-sm rounded-md text-stone-900 transition-all font-semibold";
+        } else {
+          btn.className = "px-3 py-1 text-stone-600 rounded-md transition-all";
+        }
+      });
+      document.getElementById('termoPesquisaOnline').placeholder = "Pesquisar por " + tipo + "...";
+    }
 
     function atualizarCapa(inputId, imgId, txtId) {
       const url = document.getElementById(inputId).value.trim();
@@ -271,8 +316,7 @@
     }
 
     function mudarSeparador(tab) {
-      const abas = ['inicio', 'colecao', 'adicionar'];
-      abas.forEach(a => {
+      ['inicio', 'colecao', 'adicionar'].forEach(a => {
         const sec = document.getElementById('sec-' + a);
         const nav = document.getElementById('nav-' + a);
         if (a === tab) {
@@ -309,13 +353,12 @@
 
     function atualizarDashboardEstatisticas(livros) {
       document.getElementById('stat-total').textContent = livros.length;
-      document.getElementById('stat-disponiveis').textContent = livros.filter(l => l.estado_de_leitura === 'Pendente').length;
+      document.getElementById('stat-disponiveis').textContent = livros.filter(l => l.preco === 'Disponível' || !l.preco).length;
       document.getElementById('stat-aler').textContent = livros.filter(l => l.estado_de_leitura === 'A Ler').length;
       document.getElementById('stat-abandonados').textContent = livros.filter(l => l.estado_de_leitura === 'Abandonado').length;
       document.getElementById('stat-lidos').textContent = livros.filter(l => l.estado_de_leitura === 'Lido').length;
       document.getElementById('stat-pendentes').textContent = livros.filter(l => !l.estado_de_leitura || l.estado_de_leitura === 'Pendente').length;
 
-      // Temas / Géneros únicos
       const temasContagem = {};
       livros.forEach(l => { const g = l.genero || 'Outro'; temasContagem[g] = (temasContagem[g] || 0) + 1; });
       const containerTemas = document.getElementById('listaTemas');
@@ -324,7 +367,6 @@
         containerTemas.innerHTML += `<span class="px-3 py-1 bg-white border border-stone-200 rounded-full text-xs font-medium text-stone-700 shadow-sm">${tema} (${qtd})</span>`;
       }
 
-      // Adicionados Recentemente (Top 5)
       const recentes = livros.slice(0, 5);
       const containerRecentes = document.getElementById('grelhaRecentes');
       containerRecentes.innerHTML = '';
@@ -332,7 +374,7 @@
         containerRecentes.innerHTML = `<p class="text-xs text-stone-400 col-span-5">Sem livros recentes.</p>`;
         return;
       }
-      recentes.forEach((livro, index) => {
+      recentes.forEach((livro) => {
         const imgH = livro.capa ? `<img src="${livro.capa}" class="w-full h-full object-cover">` : `<span class="text-[10px] text-stone-400 p-2 text-center">S/ Capa</span>`;
         containerRecentes.innerHTML += `
           <div class="bg-white p-3 rounded-xl border border-stone-200 shadow-sm flex flex-col justify-between">
@@ -451,7 +493,11 @@
       try {
         const r = await chamadorAPI('pesquisar', { isbn: isbnVal });
         if (r.titulo) {
-          ['titulo', 'autor', 'editora', 'preco', 'capa'].forEach(id => document.getElementById(id).value = r[id] || '');
+          document.getElementById('titulo').value = r.titulo || '';
+          document.getElementById('autor').value = r.autor || '';
+          document.getElementById('editora').value = r.editora || '';
+          document.getElementById('form_isbn_copia').value = isbnVal;
+          document.getElementById('capa').value = r.capa || '';
           atualizarCapa('capa', 'img_capa', 'txt_capa');
           exibirAlerta('Dados encontrados com sucesso!', 'sucesso');
         } else exibirAlerta('Livro não encontrado automaticamente. Podes preencher manualmente.', 'erro');
@@ -459,13 +505,29 @@
       finally { document.getElementById('spinnerPesquisa').classList.add('hidden'); }
     }
 
+    async function acionarPesquisaOnline() {
+      const termo = document.getElementById('termoPesquisaOnline').value.trim();
+      if(!termo) return exibirAlerta('Insere um termo para pesquisar.', 'erro');
+      // Simula uma busca pelo critério selecionado
+      acionarPesquisa();
+    }
+
     async function acionarGravacao() {
-      if (!document.getElementById('titulo').value.trim()) return exibirAlerta('O título é obrigatório.', 'erro');
-      const dados = ['isbn','titulo','autor','editora','preco','capa','genero','classificacao','notas'].reduce((obj, id) => {
-        obj[id] = document.getElementById(id).value.trim(); return obj;
-      }, {});
-      dados.estado_de_leitura = document.getElementById('estado').value;
-      dados.isbn = dados.isbn.replace(/[-\s]/g, '');
+      const tituloVal = document.getElementById('titulo').value.trim();
+      if (!tituloVal) return exibirAlerta('O título é obrigatório.', 'erro');
+      
+      const dados = {
+        isbn: (document.getElementById('form_isbn_copia').value || document.getElementById('isbn').value).replace(/[-\s]/g, ''),
+        titulo: tituloVal,
+        autor: document.getElementById('autor').value.trim(),
+        editora: document.getElementById('editora').value.trim(),
+        preco: document.getElementById('preco').value,
+        capa: document.getElementById('capa').value.trim(),
+        genero: document.getElementById('genero').value,
+        estado_de_leitura: document.getElementById('estado').value,
+        classificacao: document.getElementById('classificacao').value,
+        notas: (document.getElementById('sinopse').value + ' | ' + document.getElementById('notas').value).trim()
+      };
 
       document.getElementById('spinnerGravar').classList.remove('hidden');
       try {
