@@ -6,31 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            stone: {
-              50: '#fafaf9', 100: '#f5f5f4', 200: '#e7e5e4',
-              300: '#d6d3d1', 400: '#a8a29e', 500: '#78716c',
-              800: '#292524', 900: '#1c1917',
-            }
-          }
-        }
-      }
-    }
+    tailwind.config = { theme: { extend: { colors: { stone: { 50: '#fafaf9', 100: '#f5f5f4', 200: '#e7e5e4', 300: '#d6d3d1', 400: '#a8a29e', 500: '#78716c', 800: '#292524', 900: '#1c1917', } } } } }
   </script>
 </head>
-<body class="bg-stone-50 text-stone-800 antialiased min-h-screen">
+<body class="bg-stone-50 text-stone-800 antialiased min-h-screen relative">
 
-  <!-- Cabeçalho de Navegação -->
   <nav class="bg-white border-b border-stone-200 sticky top-0 z-10 shadow-sm">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-16">
-        <!-- Título responsivo: texto menor no telemóvel para não cortar -->
         <h1 class="text-lg sm:text-xl font-medium text-stone-900 tracking-wide">CATÁLOGO DE LIVROS</h1>
-        
-        <!-- Botões de Separador -->
         <div class="flex space-x-2 sm:space-x-4">
           <button onclick="mudarSeparador('colecao')" id="tab-colecao" class="px-3 py-2 text-sm sm:text-base font-medium border-b-2 border-stone-900 text-stone-900 transition-colors">A Minha Coleção</button>
           <button onclick="mudarSeparador('adicionar')" id="tab-adicionar" class="px-3 py-2 text-sm sm:text-base font-medium border-b-2 border-transparent text-stone-500 hover:text-stone-700 transition-colors">Novo Registo</button>
@@ -39,13 +23,10 @@
     </div>
   </nav>
 
-  <!-- Contentor Principal -->
   <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    
-    <!-- Alertas Globais -->
     <div id="alertBox" class="hidden mb-6 p-4 rounded-md text-sm text-center font-medium transition-all duration-300"></div>
 
-    <!-- SEPARADOR: Coleção (Listagem) -->
+    <!-- SEPARADOR: Coleção -->
     <section id="sec-colecao" class="block">
       <div class="flex justify-between items-center mb-6">
         <h2 class="text-xl font-light text-stone-800">Livros Registados</h2>
@@ -54,33 +35,28 @@
         </button>
       </div>
       
-      <!-- Indicador de Carregamento da Grelha -->
       <div id="loadingGrid" class="py-12 flex flex-col items-center justify-center text-stone-400">
-        <svg class="animate-spin h-8 w-8 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-        <p>A sincronizar com a folha de cálculo...</p>
+        <svg class="animate-spin h-8 w-8 mb-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+        <p>A sincronizar com a base de dados...</p>
       </div>
 
-      <!-- Grelha de Livros -->
-      <div id="grelhaLivros" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Os cartões de livros entram aqui via JavaScript -->
-      </div>
+      <div id="grelhaLivros" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
       
-      <!-- Mensagem de Coleção Vazia -->
       <div id="emptyState" class="hidden py-12 text-center border-2 border-dashed border-stone-200 rounded-xl">
         <p class="text-stone-500 mb-4">Ainda não tens livros na tua coleção.</p>
         <button onclick="mudarSeparador('adicionar')" class="text-stone-900 font-medium hover:underline">Adicionar o primeiro livro</button>
       </div>
     </section>
 
-    <!-- SEPARADOR: Adicionar Novo Livro -->
+    <!-- SEPARADOR: Adicionar -->
     <section id="sec-adicionar" class="hidden max-w-2xl mx-auto bg-white rounded-xl shadow-sm border border-stone-200 p-6 sm:p-8">
-      
+      <!-- (O formulário original de adição mantém-se aqui, idêntico) -->
       <div class="mb-8 p-5 bg-stone-50 rounded-lg border border-stone-100 flex flex-col sm:flex-row gap-4 items-end">
         <div class="w-full">
-          <label for="isbn" class="block text-xs font-semibold text-stone-500 uppercase tracking-wider mb-2">Código ISBN (13 Dígitos)</label>
-          <input type="text" id="isbn" name="isbn" placeholder="Ex: 9789720000000" class="w-full px-4 py-2 border border-stone-300 rounded-md focus:ring-2 focus:ring-stone-400 outline-none transition-colors shadow-sm">
+          <label class="block text-xs font-semibold text-stone-500 uppercase tracking-wider mb-2">Código ISBN (13 Dígitos)</label>
+          <input type="text" id="isbn" placeholder="Ex: 9789720000000" class="w-full px-4 py-2 border border-stone-300 rounded-md focus:ring-2 focus:ring-stone-400 outline-none">
         </div>
-        <button type="button" id="btnPesquisar" onclick="acionarPesquisa()" class="w-full sm:w-auto px-6 py-2 bg-stone-800 text-white rounded-md hover:bg-stone-700 transition-colors shadow-sm font-medium flex items-center justify-center gap-2 whitespace-nowrap">
+        <button type="button" id="btnPesquisar" onclick="acionarPesquisa()" class="w-full sm:w-auto px-6 py-2 bg-stone-800 text-white rounded-md hover:bg-stone-700 transition-colors font-medium flex gap-2">
           <span>Pesquisar</span>
           <svg id="spinnerPesquisa" class="hidden animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
         </button>
@@ -89,286 +65,327 @@
       <form id="formLivro" class="space-y-6">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div class="sm:col-span-2">
-            <label for="titulo" class="block text-xs font-semibold text-stone-500 uppercase tracking-wider mb-2">Título do Livro *</label>
-            <input type="text" id="titulo" name="titulo" required class="w-full px-4 py-2 border border-stone-300 rounded-md focus:ring-2 focus:ring-stone-400 outline-none transition-colors shadow-sm">
+            <label class="block text-xs font-semibold text-stone-500 uppercase tracking-wider mb-2">Título do Livro *</label>
+            <input type="text" id="titulo" required class="w-full px-4 py-2 border border-stone-300 rounded-md focus:ring-2 focus:ring-stone-400 outline-none">
           </div>
           <div>
-            <label for="autor" class="block text-xs font-semibold text-stone-500 uppercase tracking-wider mb-2">Autor</label>
-            <input type="text" id="autor" name="autor" class="w-full px-4 py-2 border border-stone-300 rounded-md focus:ring-2 focus:ring-stone-400 outline-none transition-colors shadow-sm">
+            <label class="block text-xs font-semibold text-stone-500 uppercase tracking-wider mb-2">Autor</label>
+            <input type="text" id="autor" class="w-full px-4 py-2 border border-stone-300 rounded-md focus:ring-2 focus:ring-stone-400 outline-none">
           </div>
           <div>
-            <label for="editora" class="block text-xs font-semibold text-stone-500 uppercase tracking-wider mb-2">Editora</label>
-            <input type="text" id="editora" name="editora" class="w-full px-4 py-2 border border-stone-300 rounded-md focus:ring-2 focus:ring-stone-400 outline-none transition-colors shadow-sm">
+            <label class="block text-xs font-semibold text-stone-500 uppercase tracking-wider mb-2">Editora</label>
+            <input type="text" id="editora" class="w-full px-4 py-2 border border-stone-300 rounded-md focus:ring-2 focus:ring-stone-400 outline-none">
           </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div>
-            <label for="preco" class="block text-xs font-semibold text-stone-500 uppercase tracking-wider mb-2">Preço</label>
-            <input type="text" id="preco" name="preco" class="w-full px-4 py-2 border border-stone-300 rounded-md focus:ring-2 focus:ring-stone-400 outline-none transition-colors shadow-sm">
+          <div><label class="block text-xs font-semibold text-stone-500 uppercase tracking-wider mb-2">Preço</label><input type="text" id="preco" class="w-full px-4 py-2 border border-stone-300 rounded-md"></div>
+          <div><label class="block text-xs font-semibold text-stone-500 uppercase tracking-wider mb-2">Género</label>
+            <select id="genero" class="w-full px-4 py-2 border border-stone-300 rounded-md bg-white"><option value="">Selecione...</option><option value="Ficção">Ficção</option><option value="Biografia">Biografia</option><option value="Técnico">Técnico</option><option value="História">História</option><option value="Romance">Romance</option><option value="Outro">Outro</option></select>
           </div>
-          <div>
-            <label for="genero" class="block text-xs font-semibold text-stone-500 uppercase tracking-wider mb-2">Género</label>
-            <select id="genero" name="genero" class="w-full px-4 py-2 border border-stone-300 rounded-md bg-white focus:ring-2 focus:ring-stone-400 outline-none transition-colors shadow-sm">
-              <option value="">Selecione...</option>
-              <option value="Ficção">Ficção</option>
-              <option value="Biografia">Biografia</option>
-              <option value="Técnico">Técnico</option>
-              <option value="História">História</option>
-              <option value="Romance">Romance</option>
-              <option value="Outro">Outro</option>
-            </select>
+          <div><label class="block text-xs font-semibold text-stone-500 uppercase tracking-wider mb-2">Estado</label>
+            <select id="estado" class="w-full px-4 py-2 border border-stone-300 rounded-md bg-white"><option value="Pendente">Pendente</option><option value="A Ler">A Ler</option><option value="Lido">Lido</option><option value="Abandonado">Abandonado</option></select>
           </div>
-          <div>
-            <label for="estado" class="block text-xs font-semibold text-stone-500 uppercase tracking-wider mb-2">Estado</label>
-            <select id="estado" name="estado" class="w-full px-4 py-2 border border-stone-300 rounded-md bg-white focus:ring-2 focus:ring-stone-400 outline-none transition-colors shadow-sm">
-              <option value="Pendente">Pendente</option>
-              <option value="A Ler">A Ler</option>
-              <option value="Lido">Lido</option>
-              <option value="Abandonado">Abandonado</option>
-            </select>
-          </div>
-          <div>
-            <label for="classificacao" class="block text-xs font-semibold text-stone-500 uppercase tracking-wider mb-2">Avaliação</label>
-            <select id="classificacao" name="classificacao" class="w-full px-4 py-2 border border-stone-300 rounded-md bg-white focus:ring-2 focus:ring-stone-400 outline-none transition-colors shadow-sm">
-              <option value="-">-</option>
-              <option value="1">1 Estrela</option>
-              <option value="2">2 Estrelas</option>
-              <option value="3">3 Estrelas</option>
-              <option value="4">4 Estrelas</option>
-              <option value="5">5 Estrelas</option>
-            </select>
+          <div><label class="block text-xs font-semibold text-stone-500 uppercase tracking-wider mb-2">Avaliação</label>
+            <select id="classificacao" class="w-full px-4 py-2 border border-stone-300 rounded-md bg-white"><option value="-">-</option><option value="1">1 Estrela</option><option value="2">2 Estrelas</option><option value="3">3 Estrelas</option><option value="4">4 Estrelas</option><option value="5">5 Estrelas</option></select>
           </div>
         </div>
-
-        <div>
-          <label for="notas" class="block text-xs font-semibold text-stone-500 uppercase tracking-wider mb-2">Notas / Recensão</label>
-          <textarea id="notas" name="notas" rows="3" class="w-full px-4 py-2 border border-stone-300 rounded-md focus:ring-2 focus:ring-stone-400 outline-none transition-colors shadow-sm resize-none"></textarea>
-        </div>
-
+        <div><label class="block text-xs font-semibold text-stone-500 uppercase tracking-wider mb-2">Notas / Recensão</label><textarea id="notas" rows="3" class="w-full px-4 py-2 border border-stone-300 rounded-md resize-none"></textarea></div>
+        
         <div class="pt-4 border-t border-stone-100 flex justify-end">
-          <button type="button" id="btnGravar" onclick="acionarGravacao()" class="w-full sm:w-auto px-8 py-3 bg-stone-900 text-white rounded-md hover:bg-stone-800 transition-colors shadow-md font-medium flex items-center justify-center gap-2">
+          <button type="button" id="btnGravar" onclick="acionarGravacao()" class="px-8 py-3 bg-stone-900 text-white rounded-md hover:bg-stone-800 transition-colors font-medium flex gap-2">
             <span>Gravar na Coleção</span>
             <svg id="spinnerGravar" class="hidden animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
           </button>
         </div>
       </form>
     </section>
-
   </main>
 
+  <!-- OVERLAY E MODAIS -->
+  <div id="modalOverlay" class="fixed inset-0 bg-stone-900/60 backdrop-blur-sm z-40 hidden items-center justify-center p-4">
+    
+    <!-- MODAL APAGAR -->
+    <div id="modalApagar" class="bg-white rounded-xl shadow-xl max-w-sm w-full p-6 hidden flex-col">
+      <h3 class="text-lg font-semibold text-stone-900 mb-2">Apagar Livro</h3>
+      <p class="text-sm text-stone-500 mb-6">Tem a certeza que deseja remover <strong id="apagarTitulo"></strong> da sua coleção? Esta ação não pode ser desfeita.</p>
+      <div class="flex justify-end gap-3">
+        <button onclick="fecharModais()" class="px-4 py-2 text-stone-600 hover:bg-stone-100 rounded-md transition-colors font-medium">Cancelar</button>
+        <button id="btnConfirmarApagar" onclick="confirmarApagar()" class="px-4 py-2 bg-red-600 text-white hover:bg-red-700 rounded-md transition-colors font-medium flex gap-2 items-center">
+          <span>Apagar</span>
+          <svg id="spinnerApagar" class="hidden animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- MODAL EDITAR -->
+    <div id="modalEditar" class="bg-white rounded-xl shadow-xl max-w-2xl w-full p-6 sm:p-8 hidden flex-col max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-lg font-semibold text-stone-900">Editar Livro</h3>
+        <button onclick="fecharModais()" class="text-stone-400 hover:text-stone-800"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+      </div>
+      
+      <form id="formEditar" class="space-y-5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div><label class="block text-xs font-semibold text-stone-500 uppercase mb-1">ISBN</label><input type="text" id="ed_isbn" class="w-full px-3 py-2 border border-stone-300 rounded-md"></div>
+          <div><label class="block text-xs font-semibold text-stone-500 uppercase mb-1">Título *</label><input type="text" id="ed_titulo" required class="w-full px-3 py-2 border border-stone-300 rounded-md"></div>
+          <div><label class="block text-xs font-semibold text-stone-500 uppercase mb-1">Autor</label><input type="text" id="ed_autor" class="w-full px-3 py-2 border border-stone-300 rounded-md"></div>
+          <div><label class="block text-xs font-semibold text-stone-500 uppercase mb-1">Editora</label><input type="text" id="ed_editora" class="w-full px-3 py-2 border border-stone-300 rounded-md"></div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-5">
+          <div><label class="block text-xs font-semibold text-stone-500 uppercase mb-1">Preço</label><input type="text" id="ed_preco" class="w-full px-3 py-2 border border-stone-300 rounded-md"></div>
+          <div><label class="block text-xs font-semibold text-stone-500 uppercase mb-1">Género</label>
+            <select id="ed_genero" class="w-full px-3 py-2 border border-stone-300 rounded-md"><option value="Ficção">Ficção</option><option value="Biografia">Biografia</option><option value="Técnico">Técnico</option><option value="História">História</option><option value="Romance">Romance</option><option value="Outro">Outro</option></select>
+          </div>
+          <div><label class="block text-xs font-semibold text-stone-500 uppercase mb-1">Estado</label>
+            <select id="ed_estado" class="w-full px-3 py-2 border border-stone-300 rounded-md"><option value="Pendente">Pendente</option><option value="A Ler">A Ler</option><option value="Lido">Lido</option><option value="Abandonado">Abandonado</option></select>
+          </div>
+          <div><label class="block text-xs font-semibold text-stone-500 uppercase mb-1">Avaliação</label>
+            <select id="ed_classificacao" class="w-full px-3 py-2 border border-stone-300 rounded-md"><option value="-">-</option><option value="1">1 Estrela</option><option value="2">2 Estrelas</option><option value="3">3 Estrelas</option><option value="4">4 Estrelas</option><option value="5">5 Estrelas</option></select>
+          </div>
+        </div>
+        <div><label class="block text-xs font-semibold text-stone-500 uppercase mb-1">Notas</label><textarea id="ed_notas" rows="2" class="w-full px-3 py-2 border border-stone-300 rounded-md resize-none"></textarea></div>
+        
+        <div class="pt-4 border-t border-stone-100 flex justify-end gap-3">
+          <button type="button" onclick="fecharModais()" class="px-4 py-2 text-stone-600 hover:bg-stone-100 rounded-md font-medium">Cancelar</button>
+          <button type="button" id="btnConfirmarEditar" onclick="confirmarEdicao()" class="px-6 py-2 bg-stone-900 text-white hover:bg-stone-800 rounded-md font-medium flex gap-2 items-center">
+            <span>Guardar Alterações</span>
+            <svg id="spinnerEditar" class="hidden animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script>
-    // =======================================================
-    // COLA AQUI O TEU NOVO LINK DO GOOGLE APPS SCRIPT
-    // =======================================================
-    const API_URL = "https://script.google.com/macros/s/AKfycbxRGAxISUlGuDf5evVTArEEWzyEIUWcUgrGvmYkp_HCjnO3Wn_Jye85UllGiPB1079S/exec";
+    const API_URL = "https://script.google.com/macros/s/AKfycbxoBjIK0uUmSby3E0VpmH7Y4OML2DyGlp3t5743kFlWdKzIBeyehK25eSQku1sTCY7e/exec";
+    
+    // Estado Global
+    let colecaoAtual = [];
+    let linhaAtiva = null;
 
-    // Iniciar a aplicação carregando a coleção
-    document.addEventListener("DOMContentLoaded", () => {
-      carregarColecao();
-    });
+    document.addEventListener("DOMContentLoaded", () => { carregarColecao(); });
 
-    // Função para gerir a navegação entre ecrãs
     function mudarSeparador(tab) {
-      const secColecao = document.getElementById('sec-colecao');
-      const secAdicionar = document.getElementById('sec-adicionar');
-      const tabColecao = document.getElementById('tab-colecao');
-      const tabAdicionar = document.getElementById('tab-adicionar');
-
-      // Limpar estilos ativos
-      const estiloAtivo = ['border-stone-900', 'text-stone-900'];
-      const estiloInativo = ['border-transparent', 'text-stone-500'];
-
-      if (tab === 'colecao') {
-        secColecao.classList.remove('hidden');
-        secAdicionar.classList.add('hidden');
-        
-        tabColecao.classList.add(...estiloAtivo);
-        tabColecao.classList.remove(...estiloInativo);
-        tabAdicionar.classList.remove(...estiloAtivo);
-        tabAdicionar.classList.add(...estiloInativo);
-        
-        carregarColecao(); // Refresca a lista sempre que entramos no separador
-      } else {
-        secColecao.classList.add('hidden');
-        secAdicionar.classList.remove('hidden');
-        
-        tabAdicionar.classList.add(...estiloAtivo);
-        tabAdicionar.classList.remove(...estiloInativo);
-        tabColecao.classList.remove(...estiloAtivo);
-        tabColecao.classList.add(...estiloInativo);
+      const tabs = {
+        colecao: { sec: 'sec-colecao', btn: 'tab-colecao' },
+        adicionar: { sec: 'sec-adicionar', btn: 'tab-adicionar' }
+      };
+      for (const [key, val] of Object.entries(tabs)) {
+        if (key === tab) {
+          document.getElementById(val.sec).classList.remove('hidden');
+          document.getElementById(val.btn).className = "px-3 py-2 text-sm sm:text-base font-medium border-b-2 border-stone-900 text-stone-900 transition-colors";
+          if (key === 'colecao') carregarColecao();
+        } else {
+          document.getElementById(val.sec).classList.add('hidden');
+          document.getElementById(val.btn).className = "px-3 py-2 text-sm sm:text-base font-medium border-b-2 border-transparent text-stone-500 hover:text-stone-700 transition-colors";
+        }
       }
     }
 
-    // Alertas do sistema
     function exibirAlerta(mensagem, tipo) {
-      const alertBox = document.getElementById('alertBox');
-      alertBox.textContent = mensagem;
-      alertBox.className = 'mb-6 p-4 rounded-md text-sm text-center font-medium transition-all duration-300 block';
-      if (tipo === 'sucesso') {
-        alertBox.classList.add('bg-green-100', 'text-green-800', 'border', 'border-green-200');
-      } else {
-        alertBox.classList.add('bg-red-100', 'text-red-800', 'border', 'border-red-200');
-      }
-      setTimeout(() => { alertBox.classList.add('hidden'); }, 4000);
+      const a = document.getElementById('alertBox');
+      a.textContent = mensagem;
+      a.className = `mb-6 p-4 rounded-md text-sm text-center font-medium transition-all duration-300 block border ${tipo === 'sucesso' ? 'bg-green-100 text-green-800 border-green-200' : 'bg-red-100 text-red-800 border-red-200'}`;
+      setTimeout(() => { a.classList.add('hidden'); }, 4000);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    async function chamadorAPI(acao, payload = {}) {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ acao, ...payload })
+      });
+      return await response.json();
     }
 
     // ==========================================
-    // LÓGICA DA COLEÇÃO (VISUALIZAÇÃO)
+    // RENDERIZAR GRELHA E CARTÕES
     // ==========================================
     async function carregarColecao() {
-      const grelha = document.getElementById('grelhaLivros');
-      const loading = document.getElementById('loadingGrid');
-      const emptyState = document.getElementById('emptyState');
-      
-      grelha.classList.add('hidden');
-      emptyState.classList.add('hidden');
-      loading.classList.remove('hidden');
-      loading.classList.add('flex');
+      document.getElementById('grelhaLivros').classList.add('hidden');
+      document.getElementById('emptyState').classList.add('hidden');
+      document.getElementById('loadingGrid').classList.remove('hidden');
+      document.getElementById('loadingGrid').classList.add('flex');
 
       try {
-        const response = await fetch(API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({ acao: 'listar' })
-        });
-        
-        const livros = await response.json();
-        renderizarGrelha(livros);
-      } catch (error) {
-        console.error(error);
-        exibirAlerta('Não foi possível carregar a coleção.', 'erro');
-      } finally {
-        loading.classList.add('hidden');
-        loading.classList.remove('flex');
+        colecaoAtual = await chamadorAPI('listar');
+        renderizarGrelha();
+      } catch (error) { exibirAlerta('Não foi possível carregar a coleção.', 'erro'); }
+      finally {
+        document.getElementById('loadingGrid').classList.add('hidden');
+        document.getElementById('loadingGrid').classList.remove('flex');
       }
     }
 
-    function renderizarGrelha(livros) {
+    function renderizarGrelha() {
       const grelha = document.getElementById('grelhaLivros');
-      const emptyState = document.getElementById('emptyState');
       grelha.innerHTML = '';
+      if (!colecaoAtual || colecaoAtual.length === 0) return document.getElementById('emptyState').classList.remove('hidden');
 
-      if (!livros || livros.length === 0) {
-        emptyState.classList.remove('hidden');
-        return;
-      }
-
-      livros.forEach(livro => {
-        // Obter cores para as etiquetas com base no estado
+      colecaoAtual.forEach((livro, index) => {
         let corEstado = 'bg-stone-200 text-stone-700';
         if(livro.estado_de_leitura === 'Lido') corEstado = 'bg-green-100 text-green-800 border border-green-200';
         if(livro.estado_de_leitura === 'A Ler') corEstado = 'bg-amber-100 text-amber-800 border border-amber-200';
         if(livro.estado_de_leitura === 'Abandonado') corEstado = 'bg-red-100 text-red-800 border border-red-200';
 
-        const card = document.createElement('div');
-        card.className = "bg-white p-6 rounded-xl shadow-sm border border-stone-200 flex flex-col justify-between hover:shadow-md transition-shadow";
-        card.innerHTML = `
-          <div>
-            <div class="flex justify-between items-start mb-3 gap-2">
-              <h3 class="text-lg font-semibold text-stone-900 leading-tight">${livro.título || 'Sem Título'}</h3>
-              <span class="inline-block px-2 py-1 rounded text-[10px] font-bold uppercase tracking-widest ${corEstado} whitespace-nowrap">
-                ${livro.estado_de_leitura || 'S/ Estado'}
-              </span>
+        grelha.innerHTML += `
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200 flex flex-col justify-between hover:shadow-md transition-shadow">
+            <div>
+              <div class="flex justify-between items-start mb-3 gap-2">
+                <h3 class="text-lg font-semibold text-stone-900 leading-tight">${livro.titulo || 'Sem Título'}</h3>
+                <span class="inline-block px-2 py-1 rounded text-[10px] font-bold uppercase tracking-widest ${corEstado} whitespace-nowrap">${livro.estado_de_leitura || 'S/ Estado'}</span>
+              </div>
+              <p class="text-sm text-stone-500 italic mb-4">${livro.autor || 'Autor Desconhecido'}</p>
+              <div class="space-y-1 mb-4">
+                <p class="text-xs text-stone-600"><span class="font-medium text-stone-400">GÉNERO:</span> ${livro.genero || '-'}</p>
+                <p class="text-xs text-stone-600"><span class="font-medium text-stone-400">EDITORA:</span> ${livro.editora || '-'}</p>
+              </div>
             </div>
-            <p class="text-sm text-stone-500 italic mb-4">${livro.autor || 'Autor Desconhecido'}</p>
             
-            <div class="space-y-1 mb-4">
-              <p class="text-xs text-stone-600"><span class="font-medium text-stone-400">GÉNERO:</span> ${livro.género || '-'}</p>
-              <p class="text-xs text-stone-600"><span class="font-medium text-stone-400">EDITORA:</span> ${livro.editora || '-'}</p>
+            <div class="pt-4 border-t border-stone-100 flex justify-between items-center text-sm">
+              <div class="flex gap-3">
+                <!-- Botão Editar -->
+                <button onclick="abrirModalEditar(${index})" class="text-stone-400 hover:text-blue-600 transition-colors" title="Editar">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                </button>
+                <!-- Botão Apagar -->
+                <button onclick="abrirModalApagar(${index})" class="text-stone-400 hover:text-red-600 transition-colors" title="Apagar">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                </button>
+              </div>
+              <div class="font-semibold text-stone-700">${livro.preco || ''}</div>
             </div>
-          </div>
-          
-          <div class="pt-4 border-t border-stone-100 flex justify-between items-center text-sm">
-            <div class="text-stone-400 font-medium">${livro.classificação !== '-' ? '⭐'.repeat(parseInt(livro.classificação)) : ''}</div>
-            <div class="font-semibold text-stone-700">${livro.preço || ''}</div>
           </div>
         `;
-        grelha.appendChild(card);
       });
-      
       grelha.classList.remove('hidden');
     }
 
     // ==========================================
-    // LÓGICA DO FORMULÁRIO (GRAVAÇÃO/PESQUISA)
+    // MODAIS (EDITAR E APAGAR)
     // ==========================================
-    async function acionarPesquisa() {
-      const isbnVal = document.getElementById('isbn').value.trim();
-      if (!isbnVal) return exibirAlerta('Insere um número ISBN.', 'erro');
-      
-      document.getElementById('spinnerPesquisa').classList.remove('hidden');
-      document.getElementById('btnPesquisar').disabled = true;
+    function fecharModais() {
+      document.getElementById('modalOverlay').classList.add('hidden');
+      document.getElementById('modalOverlay').classList.remove('flex');
+      document.getElementById('modalApagar').classList.add('hidden');
+      document.getElementById('modalApagar').classList.remove('flex');
+      document.getElementById('modalEditar').classList.add('hidden');
+      document.getElementById('modalEditar').classList.remove('flex');
+      linhaAtiva = null;
+    }
 
+    function abrirModalApagar(index) {
+      const livro = colecaoAtual[index];
+      linhaAtiva = livro._linha;
+      document.getElementById('apagarTitulo').textContent = livro.titulo;
+      
+      document.getElementById('modalOverlay').classList.remove('hidden');
+      document.getElementById('modalOverlay').classList.add('flex');
+      document.getElementById('modalApagar').classList.remove('hidden');
+      document.getElementById('modalApagar').classList.add('flex');
+    }
+
+    async function confirmarApagar() {
+      document.getElementById('spinnerApagar').classList.remove('hidden');
+      document.getElementById('btnConfirmarApagar').disabled = true;
       try {
-        const response = await fetch(API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({ acao: 'pesquisar', isbn: isbnVal })
-        });
-        const resultado = await response.json();
-        
-        if (resultado.titulo) {
-          document.getElementById('titulo').value = resultado.titulo;
-          document.getElementById('autor').value = resultado.autor;
-          document.getElementById('editora').value = resultado.editora;
-          document.getElementById('preco').value = resultado.preco;
-          exibirAlerta('Dados encontrados!', 'sucesso');
-        } else {
-          exibirAlerta('Livro não encontrado. Podes preencher manualmente.', 'erro');
-        }
-      } catch (error) {
-        exibirAlerta('Erro ao pesquisar.', 'erro');
-      } finally {
-        document.getElementById('spinnerPesquisa').classList.add('hidden');
-        document.getElementById('btnPesquisar').disabled = false;
+        const res = await chamadorAPI('apagar', { linha: linhaAtiva });
+        if (res.sucesso) { exibirAlerta(res.mensagem, 'sucesso'); carregarColecao(); } 
+        else { exibirAlerta(res.mensagem, 'erro'); }
+      } catch (e) { exibirAlerta('Erro ao apagar.', 'erro'); }
+      finally {
+        document.getElementById('spinnerApagar').classList.add('hidden');
+        document.getElementById('btnConfirmarApagar').disabled = false;
+        fecharModais();
       }
     }
 
-    async function acionarGravacao() {
-      const isbnVal = document.getElementById('isbn').value.trim();
-      const tituloVal = document.getElementById('titulo').value.trim();
+    function abrirModalEditar(index) {
+      const livro = colecaoAtual[index];
+      linhaAtiva = livro._linha;
       
-      if (!tituloVal) return exibirAlerta('O Título do Livro é obrigatório.', 'erro');
+      document.getElementById('ed_isbn').value = livro.isbn || '';
+      document.getElementById('ed_titulo').value = livro.titulo || '';
+      document.getElementById('ed_autor').value = livro.autor || '';
+      document.getElementById('ed_editora').value = livro.editora || '';
+      document.getElementById('ed_preco').value = livro.preco || '';
+      document.getElementById('ed_genero').value = livro.genero || '';
+      document.getElementById('ed_estado').value = livro.estado_de_leitura || 'Pendente';
+      document.getElementById('ed_classificacao').value = livro.classificacao || '-';
+      document.getElementById('ed_notas').value = livro.notas || '';
+
+      document.getElementById('modalOverlay').classList.remove('hidden');
+      document.getElementById('modalOverlay').classList.add('flex');
+      document.getElementById('modalEditar').classList.remove('hidden');
+      document.getElementById('modalEditar').classList.add('flex');
+    }
+
+    async function confirmarEdicao() {
+      const tituloVal = document.getElementById('ed_titulo').value.trim();
+      if (!tituloVal) return alert('O título é obrigatório.');
 
       const dadosLivro = {
-        isbn: isbnVal.replace(/[-\s]/g, ''),
+        isbn: document.getElementById('ed_isbn').value.replace(/[-\s]/g, ''),
         titulo: tituloVal,
-        autor: document.getElementById('autor').value.trim(),
-        editora: document.getElementById('editora').value.trim(),
-        preco: document.getElementById('preco').value.trim(),
-        genero: document.getElementById('genero').value,
-        estado: document.getElementById('estado').value,
-        classificacao: document.getElementById('classificacao').value,
-        notas: document.getElementById('notas').value.trim()
+        autor: document.getElementById('ed_autor').value.trim(),
+        editora: document.getElementById('ed_editora').value.trim(),
+        preco: document.getElementById('ed_preco').value.trim(),
+        genero: document.getElementById('ed_genero').value,
+        estado: document.getElementById('ed_estado').value,
+        classificacao: document.getElementById('ed_classificacao').value,
+        notas: document.getElementById('ed_notas').value.trim()
       };
 
-      document.getElementById('spinnerGravar').classList.remove('hidden');
-      document.getElementById('btnGravar').disabled = true;
-
+      document.getElementById('spinnerEditar').classList.remove('hidden');
+      document.getElementById('btnConfirmarEditar').disabled = true;
       try {
-        const response = await fetch(API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({ acao: 'gravar', dados: dadosLivro })
-        });
-        const resposta = await response.json();
-        
-        if (resposta.sucesso) {
-          exibirAlerta(resposta.mensagem, 'sucesso');
-          document.getElementById('formLivro').reset();
-          document.getElementById('isbn').value = '';
-          // Volta ao separador da coleção após gravar com sucesso
-          setTimeout(() => { mudarSeparador('colecao'); }, 1500);
-        } else {
-          exibirAlerta(resposta.mensagem, 'erro');
-        }
-      } catch (error) {
-        exibirAlerta('Erro ao gravar.', 'erro');
-      } finally {
-        document.getElementById('spinnerGravar').classList.add('hidden');
-        document.getElementById('btnGravar').disabled = false;
+        const res = await chamadorAPI('editar', { linha: linhaAtiva, dados: dadosLivro });
+        if (res.sucesso) { exibirAlerta(res.mensagem, 'sucesso'); carregarColecao(); } 
+        else { exibirAlerta(res.mensagem, 'erro'); }
+      } catch (e) { exibirAlerta('Erro ao editar.', 'erro'); }
+      finally {
+        document.getElementById('spinnerEditar').classList.add('hidden');
+        document.getElementById('btnConfirmarEditar').disabled = false;
+        fecharModais();
       }
+    }
+
+    // ==========================================
+    // LÓGICA DO FORMULÁRIO DE ADIÇÃO (MANTÉM-SE)
+    // ==========================================
+    async function acionarPesquisa() {
+      const isbnVal = document.getElementById('isbn').value.trim();
+      if (!isbnVal) return exibirAlerta('Insere um ISBN.', 'erro');
+      document.getElementById('spinnerPesquisa').classList.remove('hidden');
+      try {
+        const r = await chamadorAPI('pesquisar', { isbn: isbnVal });
+        if (r.titulo) {
+          ['titulo', 'autor', 'editora', 'preco'].forEach(id => document.getElementById(id).value = r[id] || '');
+          exibirAlerta('Dados encontrados!', 'sucesso');
+        } else exibirAlerta('Não encontrado. Preenche manualmente.', 'erro');
+      } catch (e) { exibirAlerta('Erro na pesquisa.', 'erro'); }
+      finally { document.getElementById('spinnerPesquisa').classList.add('hidden'); }
+    }
+
+    async function acionarGravacao() {
+      if (!document.getElementById('titulo').value.trim()) return exibirAlerta('Título obrigatório.', 'erro');
+      const dados = ['isbn','titulo','autor','editora','preco','genero','estado','classificacao','notas'].reduce((obj, id) => {
+        obj[id] = document.getElementById(id).value.trim(); return obj;
+      }, {});
+      dados.isbn = dados.isbn.replace(/[-\s]/g, '');
+
+      document.getElementById('spinnerGravar').classList.remove('hidden');
+      try {
+        const r = await chamadorAPI('gravar', { dados });
+        if (r.sucesso) {
+          exibirAlerta(r.mensagem, 'sucesso');
+          document.getElementById('formLivro').reset();
+          setTimeout(() => mudarSeparador('colecao'), 1000);
+        } else exibirAlerta(r.mensagem, 'erro');
+      } catch (e) { exibirAlerta('Erro ao gravar.', 'erro'); }
+      finally { document.getElementById('spinnerGravar').classList.add('hidden'); }
     }
   </script>
 </body>
