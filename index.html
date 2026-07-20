@@ -120,7 +120,6 @@
       </div>
       
       <form id="formEditar" class="flex flex-col md:flex-row gap-6">
-        <!-- Coluna Esquerda Edição (Capa) -->
         <div class="w-full md:w-1/4 flex flex-col items-center shrink-0">
           <div class="w-32 h-48 bg-stone-100 border border-stone-200 rounded-md overflow-hidden flex items-center justify-center shadow-sm relative">
             <img id="ed_img_capa" src="" class="hidden w-full h-full object-cover">
@@ -129,7 +128,6 @@
           <input type="url" id="ed_capa" placeholder="URL da Capa" oninput="atualizarCapa('ed_capa', 'ed_img_capa', 'ed_txt_capa')" class="mt-4 w-full text-xs px-2 py-2 border border-stone-300 rounded-md outline-none text-center">
         </div>
         
-        <!-- Coluna Direita Edição -->
         <div class="w-full md:w-3/4 space-y-4">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">ISBN</label><input type="text" id="ed_isbn" class="w-full px-3 py-2 border border-stone-300 rounded-md"></div>
@@ -155,7 +153,9 @@
   </div>
 
   <script>
-    // COLOCA O TEU LINK AQUI
+    // ==========================================================
+    // COLOCA O TEU LINK DA GOOGLE APPS SCRIPT AQUI (NÃO ESQUECER)
+    // ==========================================================
     const API_URL = "https://script.google.com/macros/s/AKfycbxdGDgnDYQfCRydUXeojJsxdh-y2iT6rWGyaJh6x1ZD99-9Q-8FmIzl0Y7nBJT6FH0l/exec";
     
     let colecaoAtual = [];
@@ -163,16 +163,12 @@
 
     document.addEventListener("DOMContentLoaded", () => { carregarColecao(); });
 
-    // Pré-visualização da Capa ao colar o Link
     function atualizarCapa(inputId, imgId, txtId) {
       const url = document.getElementById(inputId).value.trim();
       const img = document.getElementById(imgId);
       const txt = document.getElementById(txtId);
-      if (url) {
-        img.src = url; img.classList.remove('hidden'); txt.classList.add('hidden');
-      } else {
-        img.src = ''; img.classList.add('hidden'); txt.classList.remove('hidden');
-      }
+      if (url) { img.src = url; img.classList.remove('hidden'); txt.classList.add('hidden'); } 
+      else { img.src = ''; img.classList.add('hidden'); txt.classList.remove('hidden'); }
     }
 
     function mudarSeparador(tab) {
@@ -282,21 +278,36 @@
       finally { fecharModais(); }
     }
 
+    // ==========================================
+    // BUG RESOLVIDO AQUI: LER estado_de_leitura
+    // ==========================================
     function abrirModalEditar(index) {
       const livro = colecaoAtual[index]; linhaAtiva = livro._linha;
+      
       ['isbn', 'titulo', 'autor', 'editora', 'preco', 'capa', 'notas'].forEach(k => document.getElementById(`ed_${k}`).value = livro[k] || '');
-      ['genero', 'estado', 'classificacao'].forEach(k => document.getElementById(`ed_${k}`).value = livro[k] || (k==='classificacao'?'-':(k==='estado'?'Pendente':'')));
+      ['genero', 'classificacao'].forEach(k => document.getElementById(`ed_${k}`).value = livro[k] || (k==='classificacao'?'-':''));
+      
+      // Mapeia o nome correto da coluna do Excel (estado_de_leitura) para a UI
+      document.getElementById('ed_estado').value = livro.estado_de_leitura || 'Pendente';
+      
       atualizarCapa('ed_capa', 'ed_img_capa', 'ed_txt_capa');
       document.getElementById('modalOverlay').classList.replace('hidden', 'flex');
       document.getElementById('modalEditar').classList.replace('hidden', 'flex');
     }
 
+    // ==========================================
+    // BUG RESOLVIDO AQUI: ENVIAR estado_de_leitura
+    // ==========================================
     async function confirmarEdicao() {
       const tituloVal = document.getElementById('ed_titulo').value.trim();
       if (!tituloVal) return alert('O título é obrigatório.');
-      const dadosLivro = ['isbn','titulo','autor','editora','preco','capa','genero','estado','classificacao','notas'].reduce((obj, id) => {
+      
+      const dadosLivro = ['isbn','titulo','autor','editora','preco','capa','genero','classificacao','notas'].reduce((obj, id) => {
         obj[id] = document.getElementById(`ed_${id}`).value.trim(); return obj;
       }, {});
+      
+      // Associa o valor da UI ao nome da chave que o Backend exige
+      dadosLivro.estado_de_leitura = document.getElementById('ed_estado').value;
       dadosLivro.isbn = dadosLivro.isbn.replace(/[-\s]/g, '');
 
       try {
@@ -321,11 +332,18 @@
       finally { document.getElementById('spinnerPesquisa').classList.add('hidden'); }
     }
 
+    // ==========================================
+    // BUG RESOLVIDO AQUI: ENVIAR estado_de_leitura
+    // ==========================================
     async function acionarGravacao() {
       if (!document.getElementById('titulo').value.trim()) return exibirAlerta('Título obrigatório.', 'erro');
-      const dados = ['isbn','titulo','autor','editora','preco','capa','genero','estado','classificacao','notas'].reduce((obj, id) => {
+      
+      const dados = ['isbn','titulo','autor','editora','preco','capa','genero','classificacao','notas'].reduce((obj, id) => {
         obj[id] = document.getElementById(id).value.trim(); return obj;
       }, {});
+      
+      // Associa o valor da UI ao nome da chave que o Backend exige
+      dados.estado_de_leitura = document.getElementById('estado').value;
       dados.isbn = dados.isbn.replace(/[-\s]/g, '');
 
       document.getElementById('spinnerGravar').classList.remove('hidden');
