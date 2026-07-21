@@ -127,7 +127,7 @@
     </main>
   </div>
 
-  <!-- MODAIS DE GESTÃO (EDITAR / APAGAR COM TODOS OS CAMPOS) -->
+  <!-- MODAIS DE GESTÃO -->
   <div id="modalOverlay" class="fixed inset-0 bg-stone-900/60 backdrop-blur-sm z-40 hidden items-center justify-center p-4">
     <!-- Modal Apagar -->
     <div id="modalApagar" class="bg-white rounded-xl shadow-xl max-w-sm w-full p-6 hidden flex-col">
@@ -139,7 +139,7 @@
       </div>
     </div>
 
-    <!-- Modal Editar (Com Todos os Campos Iguais à Criação) -->
+    <!-- Modal Editar Completo -->
     <div id="modalEditar" class="bg-white rounded-xl shadow-xl max-w-3xl w-full p-6 sm:p-8 hidden flex-col max-h-[90vh] overflow-y-auto">
       <div class="flex justify-between items-center mb-6">
         <h3 class="text-base font-semibold text-stone-900">Editar Detalhes do Livro</h3>
@@ -168,8 +168,8 @@
           <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Idioma</label><input type="text" id="ed_idioma" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">ISBN 13</label><input type="text" id="ed_isbn13" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
-          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">ISBN 10</label><input type="text" id="ed_isbn10" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
+          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">ISBN 13</label><input type="text" id="ed_isbn_13" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
+          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">ISBN 10</label><input type="text" id="ed_isbn_10" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
           <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Categorias</label><input type="text" id="ed_categorias" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
         </div>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -194,7 +194,11 @@
   </div>
 
   <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbyVPbEfogusPiIRZmX9AqJrc-M6RA-Kx5mqjM0DY8l_4mzVXrFVkGigmwyxuTQjNiBJ/exec";
+    // ==========================================================
+    // SUBSTITUI A LINHA ABAIXO COM O TEU URL DO APPS SCRIPT
+    // ==========================================================
+    const API_URL = "https://script.google.com/macros/s/AKfycbwiZucq_a7CcpHYvee2R5pai8-e8IvZhjZeRR8mRBCfoeBjPSvP633vHf7XPSU5qpQ/exec";
+    
     let colecaoGlobal = [];
     let linhaAtiva = null;
 
@@ -330,12 +334,14 @@
       const livro = colecaoGlobal[index];
       linhaAtiva = livro._linha;
 
-      const camposEdicao = ['titulo','subtitulo','autores','tradutor','ilustrador','colecao','volume','edicao','editora','local_edicao','ano','paginas','idioma','isbn13','isbn10','categorias','peso','altura','largura','espessura','capa','descricao','preco','estado_de_leitura','classificacao'];
+      const camposEdicao = ['titulo','subtitulo','autores','tradutor','ilustrador','colecao','volume','edicao','editora','local_edicao','ano','paginas','idioma','isbn_13','isbn_10','categorias','peso','altura','largura','espessura','capa','descricao','preco','estado_de_leitura','classificacao'];
 
       camposEdicao.forEach(id => {
         const elem = document.getElementById('ed_' + id);
         if (elem) {
-          elem.value = livro[id] || (id === 'estado_de_leitura' ? 'Pendente' : (id === 'preco' ? 'Disponível' : (id === 'classificacao' ? '-' : '')));
+          // Procura nas chaves normalizadas da base de dados (ex: isbn_13 ou isbn13)
+          const valorBanco = livro[id] || livro[id.replace('_', '')] || '';
+          elem.value = valorBanco;
         }
       });
       
@@ -347,14 +353,13 @@
       const tituloVal = document.getElementById('ed_titulo').value.trim();
       if (!tituloVal) return alert('O título é obrigatório.');
 
-      const camposEdicao = ['titulo','subtitulo','autores','tradutor','ilustrador','colecao','volume','edicao','editora','local_edicao','ano','paginas','idioma','isbn13','isbn10','categorias','peso','altura','largura','espessura','capa','descricao','preco','estado_de_leitura','classificacao'];
+      const camposEdicao = ['titulo','subtitulo','autores','tradutor','ilustrador','colecao','volume','edicao','editora','local_edicao','ano','paginas','idioma','isbn_13','isbn_10','categorias','peso','altura','largura','espessura','capa','descricao','preco','estado_de_leitura','classificacao'];
       
       const dadosLivro = {};
       camposEdicao.forEach(id => {
         const elem = document.getElementById('ed_' + id);
         if(elem) dadosLivro[id] = elem.value.trim();
       });
-      dadosLivro.isbn = (dadosLivro.isbn13 || dadosLivro.isbn10 || '').replace(/[-\s]/g, '');
 
       const res = await chamadorAPI('editar', { linha: linhaAtiva, dados: dadosLivro });
       if (res && res.sucesso) {
@@ -401,7 +406,6 @@
       dados.preco = document.getElementById('preco').value; 
       dados.estado_de_leitura = document.getElementById('estado').value;
       dados.classificacao = document.getElementById('classificacao').value;
-      dados.isbn = (dados.isbn13 || dados.isbn10 || document.getElementById('input_isbn').value).replace(/[-\s]/g, '');
 
       document.getElementById('btnGravar').textContent = "A gravar...";
       const r = await chamadorAPI('gravar', { dados });
