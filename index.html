@@ -47,7 +47,7 @@
         </div>
       </section>
 
-      <!-- BIBLIOTECA (COM BOTÕES DE EDITAR E APAGAR RESTAURADOS) -->
+      <!-- BIBLIOTECA -->
       <section id="sec-colecao" class="hidden space-y-6">
         <div class="flex justify-between items-center">
           <h2 class="text-lg font-semibold text-stone-900">A Minha Coleção Completa</h2>
@@ -127,7 +127,7 @@
     </main>
   </div>
 
-  <!-- MODAIS DE GESTÃO (EDITAR / APAGAR) -->
+  <!-- MODAIS DE GESTÃO (EDITAR / APAGAR COM TODOS OS CAMPOS) -->
   <div id="modalOverlay" class="fixed inset-0 bg-stone-900/60 backdrop-blur-sm z-40 hidden items-center justify-center p-4">
     <!-- Modal Apagar -->
     <div id="modalApagar" class="bg-white rounded-xl shadow-xl max-w-sm w-full p-6 hidden flex-col">
@@ -139,19 +139,52 @@
       </div>
     </div>
 
-    <!-- Modal Editar (Com Guardar Alterações e Cancelar) -->
-    <div id="modalEditar" class="bg-white rounded-xl shadow-xl max-w-xl w-full p-6 sm:p-8 hidden flex-col max-h-[90vh] overflow-y-auto">
+    <!-- Modal Editar (Com Todos os Campos Iguais à Criação) -->
+    <div id="modalEditar" class="bg-white rounded-xl shadow-xl max-w-3xl w-full p-6 sm:p-8 hidden flex-col max-h-[90vh] overflow-y-auto">
       <div class="flex justify-between items-center mb-6">
-        <h3 class="text-base font-semibold text-stone-900">Editar Livro</h3>
-        <button onclick="fecharModais()" class="text-stone-400 hover:text-stone-800">✕</button>
+        <h3 class="text-base font-semibold text-stone-900">Editar Detalhes do Livro</h3>
+        <button onclick="fecharModais()" class="text-stone-400 hover:text-stone-800 font-bold">✕</button>
       </div>
       <form class="space-y-4">
-        <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Título *</label><input type="text" id="ed_titulo" required class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
-        <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Autor(es)</label><input type="text" id="ed_autores" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
-        <div class="grid grid-cols-2 gap-4">
-          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Editora</label><input type="text" id="ed_editora" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
-          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Estado de Leitura</label><select id="ed_estado" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white"><option value="Pendente">Pendente</option><option value="A Ler">A Ler</option><option value="Lido">Lido</option><option value="Abandonado">Abandonado</option></select></div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Título *</label><input type="text" id="ed_titulo" required class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
+          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Subtítulo</label><input type="text" id="ed_subtitulo" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
         </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Autor(es)</label><input type="text" id="ed_autores" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
+          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Tradutor</label><input type="text" id="ed_tradutor" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
+          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Ilustrador</label><input type="text" id="ed_ilustrador" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Editora</label><input type="text" id="ed_editora" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
+          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Local Edição</label><input type="text" id="ed_local_edicao" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
+          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Ano</label><input type="text" id="ed_ano" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
+          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Páginas</label><input type="text" id="ed_paginas" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Coleção</label><input type="text" id="ed_colecao" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
+          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Volume</label><input type="text" id="ed_volume" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
+          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Nº Edição</label><input type="text" id="ed_edicao" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
+          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Idioma</label><input type="text" id="ed_idioma" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">ISBN 13</label><input type="text" id="ed_isbn13" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
+          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">ISBN 10</label><input type="text" id="ed_isbn10" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
+          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Categorias</label><input type="text" id="ed_categorias" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Peso (g)</label><input type="text" id="ed_peso" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
+          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Altura</label><input type="text" id="ed_altura" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
+          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Largura</label><input type="text" id="ed_largura" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
+          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Espessura</label><input type="text" id="ed_espessura" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
+        </div>
+        <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">URL Imagem Capa</label><input type="url" id="ed_capa" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-xs"></div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Disponibilidade</label><select id="ed_preco" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white"><option value="Disponível">Disponível</option><option value="Emprestado">Emprestado</option></select></div>
+          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Estado Leitura</label><select id="ed_estado_de_leitura" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white"><option value="Pendente">Pendente</option><option value="A Ler">A Ler</option><option value="Lido">Lido</option><option value="Abandonado">Abandonado</option></select></div>
+          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Avaliação</label><select id="ed_classificacao" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white"><option value="-">-</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
+        </div>
+        <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Descrição / Notas</label><textarea id="ed_descricao" rows="2" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm resize-none"></textarea></div>
         <div class="flex justify-end gap-3 pt-4 border-t border-stone-200">
           <button type="button" onclick="fecharModais()" class="px-4 py-2 text-stone-600 hover:bg-stone-100 rounded-lg text-sm font-medium">Cancelar</button>
           <button type="button" onclick="confirmarEdicao()" class="px-5 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-lg text-sm font-medium">Guardar alterações</button>
@@ -296,10 +329,15 @@
     function abrirModalEditar(index) {
       const livro = colecaoGlobal[index];
       linhaAtiva = livro._linha;
-      document.getElementById('ed_titulo').value = livro.titulo || '';
-      document.getElementById('ed_autores').value = livro.autores || livro.autor || '';
-      document.getElementById('ed_editora').value = livro.editora || '';
-      document.getElementById('ed_estado').value = livro.estado_de_leitura || 'Pendente';
+
+      const camposEdicao = ['titulo','subtitulo','autores','tradutor','ilustrador','colecao','volume','edicao','editora','local_edicao','ano','paginas','idioma','isbn13','isbn10','categorias','peso','altura','largura','espessura','capa','descricao','preco','estado_de_leitura','classificacao'];
+
+      camposEdicao.forEach(id => {
+        const elem = document.getElementById('ed_' + id);
+        if (elem) {
+          elem.value = livro[id] || (id === 'estado_de_leitura' ? 'Pendente' : (id === 'preco' ? 'Disponível' : (id === 'classificacao' ? '-' : '')));
+        }
+      });
       
       document.getElementById('modalOverlay').classList.replace('hidden', 'flex');
       document.getElementById('modalEditar').classList.replace('hidden', 'flex');
@@ -309,12 +347,14 @@
       const tituloVal = document.getElementById('ed_titulo').value.trim();
       if (!tituloVal) return alert('O título é obrigatório.');
 
-      const dadosLivro = {
-        titulo: tituloVal,
-        autores: document.getElementById('ed_autores').value.trim(),
-        editora: document.getElementById('ed_editora').value.trim(),
-        estado_de_leitura: document.getElementById('ed_estado').value
-      };
+      const camposEdicao = ['titulo','subtitulo','autores','tradutor','ilustrador','colecao','volume','edicao','editora','local_edicao','ano','paginas','idioma','isbn13','isbn10','categorias','peso','altura','largura','espessura','capa','descricao','preco','estado_de_leitura','classificacao'];
+      
+      const dadosLivro = {};
+      camposEdicao.forEach(id => {
+        const elem = document.getElementById('ed_' + id);
+        if(elem) dadosLivro[id] = elem.value.trim();
+      });
+      dadosLivro.isbn = (dadosLivro.isbn13 || dadosLivro.isbn10 || '').replace(/[-\s]/g, '');
 
       const res = await chamadorAPI('editar', { linha: linhaAtiva, dados: dadosLivro });
       if (res && res.sucesso) {
