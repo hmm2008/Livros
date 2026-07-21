@@ -19,9 +19,9 @@
         <h2 class="text-sm font-semibold tracking-wider uppercase text-brand-200">Biblioteca Pessoal</h2>
       </div>
       <nav class="p-4 space-y-1">
-        <button onclick="mudarSeparador('inicio')" id="nav-inicio" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium bg-brand-800 text-white transition-colors">Início</button>
-        <button onclick="mudarSeparador('colecao')" id="nav-colecao" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-brand-100 hover:bg-brand-600/50 transition-colors">Biblioteca</button>
-        <button onclick="mudarSeparador('adicionar')" id="nav-adicionar" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-brand-100 hover:bg-brand-600/50 transition-colors">Adicionar Livro</button>
+        <button onclick="mudarSeparador('inicio')" id="nav-inicio" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium bg-brand-800 text-white">Início</button>
+        <button onclick="mudarSeparador('colecao')" id="nav-colecao" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-brand-100 hover:bg-brand-600/50">Biblioteca</button>
+        <button onclick="mudarSeparador('adicionar')" id="nav-adicionar" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-brand-100 hover:bg-brand-600/50">Adicionar Livro</button>
       </nav>
     </div>
   </aside>
@@ -32,7 +32,7 @@
     </header>
 
     <main class="p-4 md:p-8 flex-1 max-w-6xl w-full mx-auto">
-      <div id="alertBox" class="hidden mb-6 p-4 rounded-lg text-sm text-center font-medium transition-all duration-300"></div>
+      <div id="alertBox" class="hidden mb-6 p-4 rounded-lg text-sm text-center font-medium block"></div>
 
       <!-- INÍCIO -->
       <section id="sec-inicio" class="block space-y-8">
@@ -55,15 +55,33 @@
 
       <!-- ADICIONAR LIVRO -->
       <section id="sec-adicionar" class="hidden bg-white rounded-xl shadow-sm border border-stone-200 p-6 sm:p-8 space-y-6 max-w-4xl mx-auto">
-        <div class="p-4 bg-stone-50 rounded-xl border border-stone-200 space-y-3">
-          <span class="text-xs font-semibold text-stone-700 uppercase tracking-wider">Pesquisa Automática</span>
-          <div class="flex flex-col sm:flex-row gap-2">
-            <input type="text" id="isbn_pesquisa" placeholder="Ex: 9789720000000" class="w-full px-3.5 py-2 bg-white border border-stone-300 rounded-lg text-sm outline-none">
-            <button type="button" id="btnPesquisar" onclick="acionarPesquisa()" class="px-5 py-2 bg-stone-800 text-white rounded-lg hover:bg-stone-700 text-sm font-medium">Pesquisar ISBN</button>
+        <h2 class="text-base font-semibold text-stone-900">Métodos de Pesquisa Avançada</h2>
+        
+        <!-- BLOCOS DE PESQUISA SEPARADOS -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <!-- Pesquisa ISBN -->
+          <div class="p-4 bg-stone-50 rounded-xl border border-stone-200 space-y-2">
+            <label class="block text-xs font-bold text-stone-700 uppercase">1. Por ISBN / EAN</label>
+            <input type="text" id="input_isbn" placeholder="Ex: 9789897545054" class="w-full px-3 py-2 bg-white border border-stone-300 rounded-lg text-xs outline-none">
+            <button type="button" onclick="pesquisarPor('isbn')" class="w-full py-2 bg-stone-800 text-white rounded-lg hover:bg-stone-700 text-xs font-medium">Procurar por ISBN</button>
+          </div>
+
+          <!-- Pesquisa Título -->
+          <div class="p-4 bg-stone-50 rounded-xl border border-stone-200 space-y-2">
+            <label class="block text-xs font-bold text-brand-700 uppercase">2. Por Título</label>
+            <input type="text" id="input_titulo_pesquisa" placeholder="Ex: Fórmula Simplificada" class="w-full px-3 py-2 bg-white border border-stone-300 rounded-lg text-xs outline-none">
+            <button type="button" onclick="pesquisarPor('titulo')" class="w-full py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 text-xs font-medium">Procurar por Título</button>
+          </div>
+
+          <!-- Pesquisa Autor -->
+          <div class="p-4 bg-stone-50 rounded-xl border border-stone-200 space-y-2">
+            <label class="block text-xs font-bold text-amber-700 uppercase">3. Por Autor</label>
+            <input type="text" id="input_autor_pesquisa" placeholder="Ex: Humberto Barbosa" class="w-full px-3 py-2 bg-white border border-stone-300 rounded-lg text-xs outline-none">
+            <button type="button" onclick="pesquisarPor('autor')" class="w-full py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 text-xs font-medium">Procurar por Autor</button>
           </div>
         </div>
 
-        <form id="formLivro" class="space-y-4 pt-2">
+        <form id="formLivro" class="space-y-4 pt-4 border-t border-stone-200">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div><label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">Título *</label><input type="text" id="titulo" required class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white"></div>
             <div><label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">Subtítulo</label><input type="text" id="subtitulo" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white"></div>
@@ -90,12 +108,6 @@
             <div><label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">ISBN 10</label><input type="text" id="isbn10" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white"></div>
             <div><label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">Categorias/Géneros</label><input type="text" id="categorias" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white"></div>
           </div>
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div><label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">Peso (g)</label><input type="text" id="peso" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white"></div>
-            <div><label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">Altura (cm)</label><input type="text" id="altura" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white"></div>
-            <div><label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">Largura (cm)</label><input type="text" id="largura" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white"></div>
-            <div><label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">Espessura (cm)</label><input type="text" id="espessura" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white"></div>
-          </div>
           <div class="p-4 bg-stone-50 rounded-xl border border-stone-200 flex items-center gap-4">
             <div class="w-20 h-28 bg-white border border-stone-300 rounded-lg overflow-hidden flex items-center justify-center shrink-0">
               <img id="img_capa" src="" class="hidden w-full h-full object-cover">
@@ -121,7 +133,7 @@
     // ==========================================================
     // SUBSTITUI A LINHA ABAIXO COM O TEU URL
     // ==========================================================
-    const API_URL = "https://script.google.com/macros/s/AKfycbwhGBzj-dCSRlZEutBKXUvxfV8ASGi5yzNv2kdH48ySANubnP7cAnjJ4mYU1RwkMv4h/exec";
+    const API_URL = "https://script.google.com/macros/s/AKfycbyVPbEfogusPiIRZmX9AqJrc-M6RA-Kx5mqjM0DY8l_4mzVXrFVkGigmwyxuTQjNiBJ/exec";
     
     let colecaoGlobal = [];
 
@@ -162,10 +174,9 @@
       if(API_URL.includes("COLA_AQUI")) { exibirAlerta("Falta configurar o URL do Google Script no HTML.", "erro"); return null; }
       try {
         const response = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ acao, ...payload }) });
-        const data = await response.json();
-        return data;
+        return await response.json();
       } catch(e) {
-        exibirAlerta("Erro de ligação. O link pode estar errado ou o Apps Script precisa de uma 'Nova Versão'.", "erro");
+        exibirAlerta("Erro de ligação ao servidor.", "erro");
         return null;
       }
     }
@@ -220,23 +231,31 @@
       grelha.classList.remove('hidden');
     }
 
-    async function acionarPesquisa() {
-      const isbnVal = document.getElementById('isbn_pesquisa').value.trim();
-      if (!isbnVal) return exibirAlerta('Insere um ISBN válido.', 'erro');
+    async function pesquisarPor(tipo) {
+      let termo = "";
+      if (tipo === 'isbn') termo = document.getElementById('input_isbn').value.trim();
+      if (tipo === 'titulo') termo = document.getElementById('input_titulo_pesquisa').value.trim();
+      if (tipo === 'autor') termo = document.getElementById('input_autor_pesquisa').value.trim();
+
+      if (!termo) return exibirAlerta('Insere um valor para pesquisar por ' + tipo + '.', 'erro');
       
-      document.getElementById('btnPesquisar').textContent = "A pesquisar...";
-      const livro = await chamadorAPI('pesquisar', { isbn: isbnVal });
+      exibirAlerta('A pesquisar por ' + tipo + '...', 'sucesso');
+      const livro = await chamadorAPI('pesquisar', { tipo, termo });
       
       if (livro && livro.titulo) {
         const campos = ['titulo','subtitulo','autores','tradutor','ilustrador','colecao','volume','edicao','editora','local_edicao','ano','paginas','idioma','isbn13','isbn10','categorias','peso','altura','largura','espessura','capa','descricao'];
         campos.forEach(id => { if (document.getElementById(id)) document.getElementById(id).value = livro[id] || ''; });
+        
+        // Se pesquisámos por título ou autor mas o ISBN veio preenchido, coloca-o no campo de ISBN
+        if (livro.isbn && !document.getElementById('input_isbn').value) {
+          document.getElementById('input_isbn').value = livro.isbn;
+        }
+
         atualizarCapa('capa', 'img_capa', 'txt_capa');
-        exibirAlerta('Obra encontrada online!', 'sucesso');
-      } else if (livro) {
-        exibirAlerta('Livro não encontrado automaticamente. Preenche manualmente.', 'erro');
-        if(isbnVal.length === 13) document.getElementById('isbn13').value = isbnVal;
+        exibirAlerta('Livro encontrado com sucesso!', 'sucesso');
+      } else {
+        exibirAlerta('Nenhum resultado encontrado para este ' + tipo + '.', 'erro');
       }
-      document.getElementById('btnPesquisar').textContent = "Pesquisar ISBN";
     }
 
     async function acionarGravacao() {
@@ -248,13 +267,16 @@
       dados.preco = document.getElementById('preco').value; 
       dados.estado_de_leitura = document.getElementById('estado').value;
       dados.classificacao = document.getElementById('classificacao').value;
-      dados.isbn = (dados.isbn13 || dados.isbn10 || document.getElementById('isbn_pesquisa').value).replace(/[-\s]/g, '');
+      dados.isbn = (dados.isbn13 || dados.isbn10 || document.getElementById('input_isbn').value).replace(/[-\s]/g, '');
 
       document.getElementById('btnGravar').textContent = "A gravar...";
       const r = await chamadorAPI('gravar', { dados });
       if (r && r.sucesso) {
         exibirAlerta(r.mensagem, 'sucesso');
         document.getElementById('formLivro').reset();
+        document.getElementById('input_isbn').value = '';
+        document.getElementById('input_titulo_pesquisa').value = '';
+        document.getElementById('input_autor_pesquisa').value = '';
         atualizarCapa('capa', 'img_capa', 'txt_capa');
         setTimeout(() => mudarSeparador('inicio'), 1000);
       } else if (r) {
