@@ -168,7 +168,7 @@
           <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Idioma</label><input type="text" id="ed_idioma" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">ISBN 13</label><input type="text" id="ed_isbn_13" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
+          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">ISBN 13 / ISBN</label><input type="text" id="ed_isbn" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
           <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">ISBN 10</label><input type="text" id="ed_isbn_10" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
           <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Categorias</label><input type="text" id="ed_categorias" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
         </div>
@@ -194,11 +194,7 @@
   </div>
 
   <script>
-    // ==========================================================
-    // SUBSTITUI A LINHA ABAIXO COM O TEU URL DO APPS SCRIPT
-    // ==========================================================
-    const API_URL = "https://script.google.com/macros/s/AKfycbwiZucq_a7CcpHYvee2R5pai8-e8IvZhjZeRR8mRBCfoeBjPSvP633vHf7XPSU5qpQ/exec";
-    
+    const API_URL = "https://script.google.com/macros/s/AKfycbxlUvTgY44A9yuxDXu1vXqpoSIcAp2ZDW8bVzlljGgnrmIDzs0dQ_m_fGFQym82mrmE/exec";
     let colecaoGlobal = [];
     let linhaAtiva = null;
 
@@ -334,16 +330,39 @@
       const livro = colecaoGlobal[index];
       linhaAtiva = livro._linha;
 
-      const camposEdicao = ['titulo','subtitulo','autores','tradutor','ilustrador','colecao','volume','edicao','editora','local_edicao','ano','paginas','idioma','isbn_13','isbn_10','categorias','peso','altura','largura','espessura','capa','descricao','preco','estado_de_leitura','classificacao'];
-
-      camposEdicao.forEach(id => {
-        const elem = document.getElementById('ed_' + id);
-        if (elem) {
-          // Procura nas chaves normalizadas da base de dados (ex: isbn_13 ou isbn13)
-          const valorBanco = livro[id] || livro[id.replace('_', '')] || '';
-          elem.value = valorBanco;
+      // Mapeamento exato com verificação de múltiplas variações de chaves da base de dados
+      const obterValor = (chaves) => {
+        for (let c of chaves) {
+          if (livro[c] !== undefined && livro[c] !== null && livro[c] !== '') return livro[c];
         }
-      });
+        return '';
+      };
+
+      document.getElementById('ed_titulo').value = obterValor(['titulo']);
+      document.getElementById('ed_subtitulo').value = obterValor(['subtitulo']);
+      document.getElementById('ed_autores').value = obterValor(['autores', 'autor']);
+      document.getElementById('ed_tradutor').value = obterValor(['tradutor']);
+      document.getElementById('ed_ilustrador').value = obterValor(['ilustrador']);
+      document.getElementById('ed_colecao').value = obterValor(['colecao']);
+      document.getElementById('ed_volume').value = obterValor(['volume']);
+      document.getElementById('ed_edicao', 'edicao').value = obterValor(['edicao', 'edicao_num']);
+      document.getElementById('ed_editora').value = obterValor(['editora']);
+      document.getElementById('ed_local_edicao').value = obterValor(['local_edicao', 'local_de_edicao']);
+      document.getElementById('ed_ano').value = obterValor(['ano', 'ano_de_publicacao']);
+      document.getElementById('ed_paginas').value = obterValor(['paginas', 'n_de_paginas']);
+      document.getElementById('ed_idioma').value = obterValor(['idioma']);
+      document.getElementById('ed_isbn').value = obterValor(['isbn', 'isbn_13', 'isbn13', 'isbn_ean']);
+      document.getElementById('ed_isbn_10').value = obterValor(['isbn_10', 'isbn10']);
+      document.getElementById('ed_categorias').value = obterValor(['categorias', 'genero', 'tema_categoria']);
+      document.getElementById('ed_peso').value = obterValor(['peso']);
+      document.getElementById('ed_altura').value = obterValor(['altura']);
+      document.getElementById('ed_largura').value = obterValor(['largura']);
+      document.getElementById('ed_espessura').value = obterValor(['espessura']);
+      document.getElementById('ed_capa').value = obterValor(['capa']);
+      document.getElementById('ed_preco').value = obterValor(['preco', 'disponibilidade']) || 'Disponível';
+      document.getElementById('ed_estado_de_leitura').value = obterValor(['estado_de_leitura', 'estado']) || 'Pendente';
+      document.getElementById('ed_classificacao').value = obterValor(['classificacao']) || '-';
+      document.getElementById('ed_descricao').value = obterValor(['descricao', 'sinopse', 'notas']);
       
       document.getElementById('modalOverlay').classList.replace('hidden', 'flex');
       document.getElementById('modalEditar').classList.replace('hidden', 'flex');
@@ -353,13 +372,34 @@
       const tituloVal = document.getElementById('ed_titulo').value.trim();
       if (!tituloVal) return alert('O título é obrigatório.');
 
-      const camposEdicao = ['titulo','subtitulo','autores','tradutor','ilustrador','colecao','volume','edicao','editora','local_edicao','ano','paginas','idioma','isbn_13','isbn_10','categorias','peso','altura','largura','espessura','capa','descricao','preco','estado_de_leitura','classificacao'];
-      
-      const dadosLivro = {};
-      camposEdicao.forEach(id => {
-        const elem = document.getElementById('ed_' + id);
-        if(elem) dadosLivro[id] = elem.value.trim();
-      });
+      const dadosLivro = {
+        titulo: tituloVal,
+        subtitulo: document.getElementById('ed_subtitulo').value.trim(),
+        autores: document.getElementById('ed_autores').value.trim(),
+        tradutor: document.getElementById('ed_tradutor').value.trim(),
+        ilustrador: document.getElementById('ed_ilustrador').value.trim(),
+        colecao: document.getElementById('ed_colecao').value.trim(),
+        volume: document.getElementById('ed_volume').value.trim(),
+        edicao: document.getElementById('ed_edicao').value.trim(),
+        editora: document.getElementById('ed_editora').value.trim(),
+        local_edicao: document.getElementById('ed_local_edicao').value.trim(),
+        ano: document.getElementById('ed_ano').value.trim(),
+        paginas: document.getElementById('ed_paginas').value.trim(),
+        idioma: document.getElementById('ed_idioma').value.trim(),
+        isbn: document.getElementById('ed_isbn').value.replace(/[-\s]/g, ''),
+        isbn13: document.getElementById('ed_isbn').value.replace(/[-\s]/g, ''),
+        isbn10: document.getElementById('ed_isbn_10').value.replace(/[-\s]/g, ''),
+        categorias: document.getElementById('ed_categorias').value.trim(),
+        peso: document.getElementById('ed_peso').value.trim(),
+        altura: document.getElementById('ed_altura').value.trim(),
+        largura: document.getElementById('ed_largura').value.trim(),
+        espessura: document.getElementById('ed_espessura').value.trim(),
+        capa: document.getElementById('ed_capa').value.trim(),
+        preco: document.getElementById('ed_preco').value,
+        estado_de_leitura: document.getElementById('ed_estado_de_leitura').value,
+        classificacao: document.getElementById('ed_classificacao').value,
+        descricao: document.getElementById('ed_descricao').value.trim()
+      };
 
       const res = await chamadorAPI('editar', { linha: linhaAtiva, dados: dadosLivro });
       if (res && res.sucesso) {
@@ -406,6 +446,7 @@
       dados.preco = document.getElementById('preco').value; 
       dados.estado_de_leitura = document.getElementById('estado').value;
       dados.classificacao = document.getElementById('classificacao').value;
+      dados.isbn = (dados.isbn13 || dados.isbn10 || document.getElementById('input_isbn').value).replace(/[-\s]/g, '');
 
       document.getElementById('btnGravar').textContent = "A gravar...";
       const r = await chamadorAPI('gravar', { dados });
