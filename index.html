@@ -21,14 +21,14 @@
 <body class="bg-stone-50 text-stone-800 antialiased min-h-screen flex flex-col md:flex-row">
 
   <!-- SIDEBAR (Menu Lateral Fixo) -->
-  <aside class="w-full md:w-64 bg-brand-700 text-white flex flex-col justify-between shrink-0 shadow-lg md:min-h-screen">
+  <aside class="w-full md:w-64 bg-brand-700 text-white flex flex-col justify-between shrink-0 shadow-lg md:min-h-screen sticky top-0 md:h-screen overflow-y-auto">
     <div>
       <div class="p-6 border-b border-brand-600/50">
         <h2 class="text-sm font-semibold tracking-wider uppercase text-brand-200">Biblioteca Pessoal</h2>
-        <p class="text-xs text-brand-100 mt-1">Manuel Francisco 📚</p>
+        <p class="text-xs text-brand-100 mt-1">O teu catálogo digital 📚</p>
       </div>
       <nav class="p-4 space-y-1">
-        <button onclick="mudarSeparador('inicio')" id="nav-inicio" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-brand-100 hover:bg-brand-600/50 transition-colors">
+        <button onclick="mudarSeparador('inicio')" id="nav-inicio" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium bg-brand-800 text-white transition-colors">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
           Início
         </button>
@@ -36,13 +36,13 @@
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
           Biblioteca
         </button>
-        <button onclick="mudarSeparador('adicionar')" id="nav-adicionar" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium bg-brand-800 text-white transition-colors">
+        <button onclick="mudarSeparador('adicionar')" id="nav-adicionar" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-brand-100 hover:bg-brand-600/50 transition-colors">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
           Adicionar Livro
         </button>
       </nav>
     </div>
-    <div class="p-4 border-t border-brand-600/50 text-xs text-brand-200">v1.0 • 2026 Manuel Francisco</div>
+    <div class="p-4 border-t border-brand-600/50 text-xs text-brand-200">v2.0 • Coleção Privada</div>
   </aside>
 
   <!-- CONTEÚDO PRINCIPAL -->
@@ -51,19 +51,20 @@
     <!-- BARRA DE TOPO -->
     <header class="bg-white border-b border-stone-200 h-16 px-6 flex items-center justify-between sticky top-0 z-20 shadow-sm">
       <div class="flex items-center gap-2">
-        <h1 class="text-base font-medium text-stone-900">Biblioteca Pessoal de Manuel Francisco 📚</h1>
+        <h1 class="text-base font-medium text-stone-900 hidden sm:block">Painel de Controlo da Biblioteca</h1>
+        <h1 class="text-base font-medium text-stone-900 sm:hidden">Biblioteca</h1>
       </div>
       <button onclick="mudarSeparador('adicionar')" class="px-4 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition-colors text-xs font-semibold flex items-center gap-2 shadow-sm">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-        Adicionar Livro
+        <span class="hidden sm:inline">Adicionar Livro</span>
       </button>
     </header>
 
-    <main class="p-6 md:p-8 flex-1 max-w-5xl w-full mx-auto">
+    <main class="p-4 md:p-8 flex-1 max-w-6xl w-full mx-auto">
       <div id="alertBox" class="hidden mb-6 p-4 rounded-lg text-sm text-center font-medium transition-all duration-300"></div>
 
       <!-- ================= SEPARADOR: INÍCIO ================= -->
-      <section id="sec-inicio" class="hidden space-y-8">
+      <section id="sec-inicio" class="block space-y-8">
         <div class="relative max-w-xl">
           <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -81,7 +82,7 @@
         </div>
 
         <div>
-          <h3 class="text-sm font-semibold text-stone-700 mb-3">Por Tema / Género</h3>
+          <h3 class="text-sm font-semibold text-stone-700 mb-3">Por Tema / Categorias</h3>
           <div id="listaTemas" class="flex flex-wrap gap-2"></div>
         </div>
 
@@ -113,115 +114,97 @@
         </div>
       </section>
 
-      <!-- ================= SEPARADOR: ADICIONAR LIVRO (EXATO À IMAGEM) ================= -->
-      <section id="sec-adicionar" class="block bg-white rounded-xl shadow-sm border border-stone-200 p-6 sm:p-8 space-y-6">
+      <!-- ================= SEPARADOR: ADICIONAR LIVRO ================= -->
+      <section id="sec-adicionar" class="hidden bg-white rounded-xl shadow-sm border border-stone-200 p-6 sm:p-8 space-y-6 max-w-4xl mx-auto">
         <div>
           <h2 class="text-lg font-semibold text-stone-900">Adicionar Livro</h2>
-          <p class="text-xs text-stone-500 mt-0.5">Insere o ISBN/EAN para pesquisar os dados automaticamente.</p>
+          <p class="text-xs text-stone-500 mt-0.5">Pesquisa por ISBN para preencher automaticamente os dados da obra.</p>
         </div>
 
-        <!-- Bloco de Pesquisa Online (Alternativa por Critérios) -->
         <div class="p-4 bg-stone-50 rounded-xl border border-stone-200 space-y-3">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-semibold text-stone-700 uppercase tracking-wider">Pesquisa Online</span>
-            <div class="flex gap-1.5 bg-stone-200 p-1 rounded-lg text-xs font-medium">
-              <button type="button" onclick="mudarTipoPesquisa('titulo')" id="btn-t-titulo" class="px-3 py-1 bg-white shadow-sm rounded-md text-stone-900 transition-all">Título</button>
-              <button type="button" onclick="mudarTipoPesquisa('autor')" id="btn-t-autor" class="px-3 py-1 text-stone-600 rounded-md transition-all">Autor</button>
-              <button type="button" onclick="mudarTipoPesquisa('editora')" id="btn-t-editora" class="px-3 py-1 text-stone-600 rounded-md transition-all">Editora</button>
-            </div>
-          </div>
-          <div class="flex gap-2">
-            <input type="text" id="termoPesquisaOnline" placeholder="Ex: O Nome da Rosa" class="w-full px-3.5 py-2 bg-white border border-stone-300 rounded-lg text-sm outline-none focus:border-brand-500">
-            <button type="button" onclick="acionarPesquisaOnline()" class="px-5 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition-colors text-sm font-medium shrink-0 flex items-center gap-2">
-              <span>Pesquisar</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Bloco de Pesquisa por ISBN / EAN -->
-        <div class="p-4 bg-stone-50 rounded-xl border border-stone-200 space-y-3">
-          <span class="text-xs font-semibold text-stone-700 uppercase tracking-wider">Pesquisa por ISBN / EAN</span>
-          <div class="flex gap-2">
-            <input type="text" id="isbn" placeholder="Ex: 9789720000000" class="w-full px-3.5 py-2 bg-white border border-stone-300 rounded-lg text-sm outline-none focus:border-brand-500">
-            <button type="button" id="btnPesquisar" onclick="acionarPesquisa()" class="px-5 py-2 bg-stone-800 text-white rounded-lg hover:bg-stone-700 transition-colors text-sm font-medium shrink-0 flex items-center gap-2">
-              <span>Pesquisar</span>
+          <span class="text-xs font-semibold text-stone-700 uppercase tracking-wider">Pesquisa em Cascata</span>
+          <div class="flex flex-col sm:flex-row gap-2">
+            <input type="text" id="isbn_pesquisa" placeholder="Ex: 9789720000000" class="w-full px-3.5 py-2 bg-white border border-stone-300 rounded-lg text-sm outline-none focus:border-brand-500">
+            <button type="button" id="btnPesquisar" onclick="acionarPesquisa()" class="px-5 py-2 bg-stone-800 text-white rounded-lg hover:bg-stone-700 transition-colors text-sm font-medium shrink-0 flex items-center justify-center gap-2 w-full sm:w-auto">
+              <span>Pesquisar ISBN</span>
               <svg id="spinnerPesquisa" class="hidden animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
             </button>
           </div>
-          <div class="text-center my-1"><span class="text-[11px] text-stone-400 font-medium">ou</span></div>
-          <label class="border-2 border-dashed border-stone-300 rounded-xl p-3 flex items-center justify-center gap-2 text-xs font-medium text-stone-600 bg-white hover:bg-stone-50 cursor-pointer transition-colors">
-            <svg class="w-4 h-4 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path></svg>
-            <span>Fotografar ou carregar imagem do código de barras</span>
-            <input type="file" accept="image/*" class="hidden" onchange="alert('Módulo de leitura de código de barras simulado. Podes inserir o ISBN manualmente no campo acima.')">
-          </label>
-          <p class="text-[11px] text-stone-500 bg-blue-50 border border-blue-100 p-2.5 rounded-lg flex items-center gap-2">
-            <span>ℹ️</span> Livro não encontrado online. Podes preencher os dados manualmente abaixo.
-          </p>
         </div>
 
-        <!-- Formulário de Dados do Livro Detalhado -->
         <form id="formLivro" class="space-y-4 pt-2">
-          <h3 class="text-xs font-semibold text-stone-500 uppercase tracking-wider">Dados do Livro</h3>
-          <p class="text-xs text-stone-400 -mt-2">Preenche os campos manualmente.</p>
-
-          <div>
-            <label class="block text-xs font-semibold text-stone-700 uppercase mb-1">Título *</label>
-            <input type="text" id="titulo" required class="w-full px-3.5 py-2 border border-stone-300 rounded-lg text-sm outline-none focus:border-brand-500">
+          <h3 class="text-xs font-semibold text-stone-500 uppercase tracking-wider">Dados Principais</h3>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div><label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">Título *</label><input type="text" id="titulo" required class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white outline-none focus:border-brand-500"></div>
+            <div><label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">Subtítulo</label><input type="text" id="subtitulo" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white outline-none focus:border-brand-500"></div>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div><label class="block text-xs font-semibold text-stone-700 uppercase mb-1">Autor(es)</label><input type="text" id="autor" class="w-full px-3.5 py-2 border border-stone-300 rounded-lg text-sm"></div>
-            <div><label class="block text-xs font-semibold text-stone-700 uppercase mb-1">Editora</label><input type="text" id="editora" class="w-full px-3.5 py-2 border border-stone-300 rounded-lg text-sm"></div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div><label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">Autor(es)</label><input type="text" id="autores" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white outline-none"></div>
+            <div><label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">Tradutor</label><input type="text" id="tradutor" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white outline-none"></div>
+            <div><label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">Ilustrador</label><input type="text" id="ilustrador" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white outline-none"></div>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div><label class="block text-xs font-semibold text-stone-700 uppercase mb-1">Ano de Publicação</label><input type="text" id="ano" class="w-full px-3.5 py-2 border border-stone-300 rounded-lg text-sm"></div>
-            <div><label class="block text-xs font-semibold text-stone-700 uppercase mb-1">ISBN / EAN</label><input type="text" id="form_isbn_copia" class="w-full px-3.5 py-2 border border-stone-300 rounded-lg text-sm"></div>
-            <div><label class="block text-xs font-semibold text-stone-700 uppercase mb-1">Nº de Páginas</label><input type="text" id="paginas" class="w-full px-3.5 py-2 border border-stone-300 rounded-lg text-sm"></div>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div><label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">Editora</label><input type="text" id="editora" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white outline-none"></div>
+            <div><label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">Local Edição</label><input type="text" id="local_edicao" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white outline-none"></div>
+            <div><label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">Ano</label><input type="text" id="ano" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white outline-none"></div>
+            <div><label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">Páginas</label><input type="text" id="paginas" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white outline-none"></div>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div>
-              <label class="block text-xs font-semibold text-stone-700 uppercase mb-1">Idioma</label>
-              <select id="idioma" class="w-full px-3.5 py-2 border border-stone-300 rounded-lg text-sm bg-white"><option value="Português">Português</option><option value="Inglês">Inglês</option><option value="Espanhol">Espanhol</option><option value="Outro">Outro</option></select>
-            </div>
-            <div><label class="block text-xs font-semibold text-stone-700 uppercase mb-1">Localização na Prateleira</label><input type="text" id="prateleira" placeholder="Ex: Prateleira 2" class="w-full px-3.5 py-2 border border-stone-300 rounded-lg text-sm"></div>
-            <div>
-              <label class="block text-xs font-semibold text-stone-700 uppercase mb-1">Tema / Categoria</label>
-              <select id="genero" class="w-full px-3.5 py-2 border border-stone-300 rounded-lg text-sm bg-white"><option value="">Selecionar tema...</option><option value="Ficção">Ficção</option><option value="Biografia">Biografia</option><option value="Técnico">Técnico</option><option value="História">História</option><option value="Romance">Romance</option><option value="Outro">Outro</option></select>
-            </div>
+          <h3 class="text-xs font-semibold text-stone-500 uppercase tracking-wider mt-6">Classificação e Identificação</h3>
+          
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div><label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">Coleção</label><input type="text" id="colecao" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white outline-none"></div>
+            <div><label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">Volume</label><input type="text" id="volume" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white outline-none"></div>
+            <div><label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">Nº Edição</label><input type="text" id="edicao" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white outline-none"></div>
+            <div><label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">Idioma</label><input type="text" id="idioma" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white outline-none"></div>
           </div>
 
-          <!-- Secção da Capa -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div><label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">ISBN 13</label><input type="text" id="isbn13" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white outline-none"></div>
+            <div><label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">ISBN 10</label><input type="text" id="isbn10" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white outline-none"></div>
+            <div><label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">Categorias/Géneros</label><input type="text" id="categorias" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white outline-none"></div>
+          </div>
+
+          <h3 class="text-xs font-semibold text-stone-500 uppercase tracking-wider mt-6">Especificações Físicas</h3>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div><label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">Peso (g)</label><input type="text" id="peso" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white outline-none"></div>
+            <div><label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">Altura (cm)</label><input type="text" id="altura" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white outline-none"></div>
+            <div><label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">Largura (cm)</label><input type="text" id="largura" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white outline-none"></div>
+            <div><label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">Espessura (cm)</label><input type="text" id="espessura" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white outline-none"></div>
+          </div>
+
+          <h3 class="text-xs font-semibold text-stone-500 uppercase tracking-wider mt-6">Capa e Estado</h3>
+          
           <div class="p-4 bg-stone-50 rounded-xl border border-stone-200 flex flex-col sm:flex-row items-center gap-4">
-            <div class="w-20 h-28 bg-white border border-stone-200 rounded-lg overflow-hidden flex items-center justify-center shrink-0 shadow-inner">
+            <div class="w-20 h-28 bg-white border border-stone-300 rounded-lg overflow-hidden flex items-center justify-center shrink-0 shadow-inner">
               <img id="img_capa" src="" class="hidden w-full h-full object-cover">
-              <span id="txt_capa" class="text-stone-400 text-[10px] text-center p-1">Sem Capa</span>
+              <span id="txt_capa" class="text-stone-400 text-[10px] text-center p-1 font-medium">Sem Capa</span>
             </div>
             <div class="w-full space-y-2">
-              <label class="block text-xs font-semibold text-stone-700 uppercase">Capa do Livro</label>
-              <div class="flex flex-wrap gap-2 text-xs font-medium text-brand-600">
-                <span class="cursor-pointer hover:underline" onclick="alert('Funcionalidade de colar imagem pronta via URL abaixo.')">📷 Colar imagem</span> • 
-                <span class="cursor-pointer hover:underline" onclick="document.getElementById('capa').focus()">🔗 URL manual</span>
-              </div>
-              <input type="url" id="capa" placeholder="https://exemplo.com/capa.jpg" oninput="atualizarCapa('capa', 'img_capa', 'txt_capa')" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-xs bg-white">
+              <label class="block text-[10px] font-semibold text-stone-700 uppercase">URL da Imagem da Capa</label>
+              <input type="url" id="capa" oninput="atualizarCapa('capa', 'img_capa', 'txt_capa')" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-xs bg-white outline-none">
             </div>
           </div>
 
-          <div><label class="block text-xs font-semibold text-stone-700 uppercase mb-1">Sinopse / Descrição</label><textarea id="sinopse" rows="3" class="w-full px-3.5 py-2 border border-stone-300 rounded-lg text-sm resize-none"></textarea></div>
-          <div><label class="block text-xs font-semibold text-stone-700 uppercase mb-1">Notas Pessoais</label><textarea id="notas" rows="2" class="w-full px-3.5 py-2 border border-stone-300 rounded-lg text-sm resize-none"></textarea></div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
             <div>
-              <label class="block text-xs font-semibold text-stone-700 uppercase mb-1">Estado</label>
-              <select id="preco" class="w-full px-3.5 py-2 border border-stone-300 rounded-lg text-sm bg-white"><option value="Disponível">Disponível</option><option value="Emprestado">Emprestado</option><option value="Extraviado">Extraviado</option></select>
+              <label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">Disponibilidade</label>
+              <select id="preco" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white"><option value="Disponível">Disponível</option><option value="Emprestado">Emprestado</option><option value="Extraviado">Extraviado</option></select>
             </div>
             <div>
-              <label class="block text-xs font-semibold text-stone-700 uppercase mb-1">Estado de Leitura</label>
-              <select id="estado" class="w-full px-3.5 py-2 border border-stone-300 rounded-lg text-sm bg-white"><option value="Pendente">Não lido / Pendente</option><option value="A Ler">A Ler</option><option value="Lido">Lido</option><option value="Abandonado">Abandonado</option></select>
+              <label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">Estado de Leitura</label>
+              <select id="estado" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white"><option value="Pendente">Não lido / Pendente</option><option value="A Ler">A Ler</option><option value="Lido">Lido</option><option value="Abandonado">Abandonado</option></select>
+            </div>
+            <div>
+              <label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1">Avaliação</label>
+              <select id="classificacao" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white"><option value="-">-</option><option value="1">1 Estrela</option><option value="2">2 Estrelas</option><option value="3">3 Estrelas</option><option value="4">4 Estrelas</option><option value="5">5 Estrelas</option></select>
             </div>
           </div>
-          <div><label class="block text-xs font-semibold text-stone-700 uppercase mb-1">Classificação (Estrelas)</label><select id="classificacao" class="w-full px-3.5 py-2 border border-stone-300 rounded-lg text-sm bg-white"><option value="-">-</option><option value="1">1 Estrela</option><option value="2">2 Estrelas</option><option value="3">3 Estrelas</option><option value="4">4 Estrelas</option><option value="5">5 Estrelas</option></select></div>
+
+          <div><label class="block text-[10px] font-semibold text-stone-700 uppercase mb-1 mt-2">Descrição / Sinopse / Notas</label><textarea id="descricao" rows="3" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm resize-none outline-none"></textarea></div>
 
           <div class="pt-6 border-t border-stone-200 flex justify-end">
             <button type="button" id="btnGravar" onclick="acionarGravacao()" class="px-8 py-3 bg-brand-600 text-white rounded-xl hover:bg-brand-700 transition-colors text-sm font-semibold shadow-md flex items-center gap-2">
@@ -231,51 +214,50 @@
           </div>
         </form>
       </section>
-
     </main>
   </div>
 
   <!-- MODAIS DE EDIÇÃO E APAGAR -->
   <div id="modalOverlay" class="fixed inset-0 bg-stone-900/60 backdrop-blur-sm z-40 hidden items-center justify-center p-4">
+    <!-- Modal Apagar -->
     <div id="modalApagar" class="bg-white rounded-xl shadow-xl max-w-sm w-full p-6 hidden flex-col">
       <h3 class="text-base font-semibold text-stone-900 mb-2">Apagar Livro</h3>
       <p class="text-sm text-stone-500 mb-6">Tem a certeza que deseja remover <strong id="apagarTitulo"></strong>?</p>
       <div class="flex justify-end gap-3">
-        <button onclick="fecharModais()" class="px-4 py-2 text-stone-600 hover:bg-stone-100 rounded-lg text-sm">Cancelar</button>
+        <button onclick="fecharModais()" class="px-4 py-2 text-stone-600 hover:bg-stone-100 rounded-lg text-sm font-medium">Cancelar</button>
         <button onclick="confirmarApagar()" class="px-4 py-2 bg-rose-600 text-white rounded-lg text-sm font-medium">Apagar</button>
       </div>
     </div>
 
+    <!-- Modal Editar (Simplificado para os campos principais) -->
     <div id="modalEditar" class="bg-white rounded-xl shadow-xl max-w-3xl w-full p-6 sm:p-8 hidden flex-col max-h-[90vh] overflow-y-auto">
       <div class="flex justify-between items-center mb-6">
-        <h3 class="text-base font-semibold text-stone-900">Editar Livro</h3>
+        <h3 class="text-base font-semibold text-stone-900">Editar Livro Rápido</h3>
         <button onclick="fecharModais()" class="text-stone-400 hover:text-stone-800"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
       </div>
       <form class="flex flex-col md:flex-row gap-6">
         <div class="w-full md:w-1/3 flex flex-col items-center shrink-0">
-          <div class="w-32 h-48 bg-stone-100 border border-stone-200 rounded-lg overflow-hidden flex items-center justify-center relative">
+          <div class="w-32 h-48 bg-stone-100 border border-stone-200 rounded-lg overflow-hidden flex items-center justify-center relative shadow-inner">
             <img id="ed_img_capa" src="" class="hidden w-full h-full object-cover">
             <span id="ed_txt_capa" class="text-stone-400 text-xs text-center p-2 font-medium">Sem Capa</span>
           </div>
-          <input type="url" id="ed_capa" placeholder="URL da Capa" oninput="atualizarCapa('ed_capa', 'ed_img_capa', 'ed_txt_capa')" class="mt-3 w-full text-xs px-3 py-2 border border-stone-300 rounded-lg text-center">
+          <input type="url" id="ed_capa" placeholder="URL da Capa" oninput="atualizarCapa('ed_capa', 'ed_img_capa', 'ed_txt_capa')" class="mt-3 w-full text-xs px-3 py-2 border border-stone-300 rounded-lg text-center outline-none">
         </div>
         <div class="w-full md:w-2/3 space-y-4">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">ISBN</label><input type="text" id="ed_isbn" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
-            <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Título *</label><input type="text" id="ed_titulo" required class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
-            <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Autor</label><input type="text" id="ed_autor" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
-            <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Editora</label><input type="text" id="ed_editora" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
+            <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Título *</label><input type="text" id="ed_titulo" required class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm outline-none"></div>
+            <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Autor(es)</label><input type="text" id="ed_autores" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm outline-none"></div>
+            <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Editora</label><input type="text" id="ed_editora" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm outline-none"></div>
+            <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Categorias</label><input type="text" id="ed_categorias" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm outline-none"></div>
           </div>
           <div class="grid grid-cols-3 gap-3">
-            <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Preço / Estado</label><input type="text" id="ed_preco" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm"></div>
-            <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Género</label><select id="ed_genero" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white"><option value="Ficção">Ficção</option><option value="Biografia">Biografia</option><option value="Técnico">Técnico</option><option value="História">História</option><option value="Romance">Romance</option><option value="Outro">Outro</option></select></div>
-            <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Estado Leitura</label><select id="ed_estado" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white"><option value="Pendente">Pendente</option><option value="A Ler">A Ler</option><option value="Lido">Lido</option><option value="Abandonado">Abandonado</option></select></div>
+            <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Disponibilidade</label><select id="ed_preco" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white outline-none"><option value="Disponível">Disponível</option><option value="Emprestado">Emprestado</option><option value="Extraviado">Extraviado</option></select></div>
+            <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Estado Leitura</label><select id="ed_estado_de_leitura" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white outline-none"><option value="Pendente">Pendente</option><option value="A Ler">A Ler</option><option value="Lido">Lido</option><option value="Abandonado">Abandonado</option></select></div>
+            <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Avaliação</label><select id="ed_classificacao" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white outline-none"><option value="-">-</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
           </div>
-          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Avaliação</label><select id="ed_classificacao" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white"><option value="-">-</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
-          <div><label class="block text-[10px] font-semibold text-stone-500 uppercase">Notas</label><textarea id="ed_notas" rows="2" class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm resize-none"></textarea></div>
-          <div class="flex justify-end gap-3 pt-2">
-            <button type="button" onclick="fecharModais()" class="px-4 py-2 text-stone-600 hover:bg-stone-100 rounded-lg text-sm">Cancelar</button>
-            <button type="button" onclick="confirmarEdicao()" class="px-5 py-2 bg-stone-900 text-white rounded-lg text-sm font-medium">Guardar</button>
+          <div class="flex justify-end gap-3 pt-4">
+            <button type="button" onclick="fecharModais()" class="px-4 py-2 text-stone-600 hover:bg-stone-100 rounded-lg text-sm font-medium transition-colors">Cancelar</button>
+            <button type="button" onclick="confirmarEdicao()" class="px-6 py-2 bg-stone-900 hover:bg-stone-800 text-white rounded-lg text-sm font-medium transition-colors">Guardar</button>
           </div>
         </div>
       </form>
@@ -284,28 +266,14 @@
 
   <script>
     // ==========================================================
-    // COLOCA O TEU LINK DA GOOGLE APPS SCRIPT AQUI
+    // COLOCA O TEU LINK DA GOOGLE APPS SCRIPT AQUI ABAIXO
     // ==========================================================
-    const API_URL = "https://script.google.com/macros/s/AKfycbzHpB5N78FCjtGi4HEQt5dM_QsPkqg8YOtDDpdopkaqk0FeKZNZF4vkoZMVohvQfA5Y/exec";
+    const API_URL = "https://script.google.com/macros/s/AKfycbxuR7C7bjVRxyzxnwfkFNexVgvBapC1q1yMp1g_ajG7IyuKy7zvOgbhsvnvgIfbFQop/exec";
     
     let colecaoGlobal = [];
     let linhaAtiva = null;
-    let tipoPesquisaAtual = 'titulo';
 
     document.addEventListener("DOMContentLoaded", () => { carregarColecao(); });
-
-    function mudarTipoPesquisa(tipo) {
-      tipoPesquisaAtual = tipo;
-      ['titulo', 'autor', 'editora'].forEach(t => {
-        const btn = document.getElementById('btn-t-' + t);
-        if (t === tipo) {
-          btn.className = "px-3 py-1 bg-white shadow-sm rounded-md text-stone-900 transition-all font-semibold";
-        } else {
-          btn.className = "px-3 py-1 text-stone-600 rounded-md transition-all";
-        }
-      });
-      document.getElementById('termoPesquisaOnline').placeholder = "Pesquisar por " + tipo + "...";
-    }
 
     function atualizarCapa(inputId, imgId, txtId) {
       const url = document.getElementById(inputId).value.trim();
@@ -339,6 +307,10 @@
     }
 
     async function chamadorAPI(acao, payload = {}) {
+      if (API_URL === "COLA_AQUI_O_TEU_LINK_DO_APPS_SCRIPT") {
+        exibirAlerta("Atenção: Não configuraste o URL do Google Apps Script no código fonte.", "erro");
+        return { sucesso: false, mensagem: "API_URL em falta." };
+      }
       const response = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ acao, ...payload }) });
       return await response.json();
     }
@@ -346,9 +318,11 @@
     async function carregarColecao() {
       try {
         colecaoGlobal = await chamadorAPI('listar');
-        atualizarDashboardEstatisticas(colecaoGlobal);
-        renderizarGrelhaCompleta(colecaoGlobal);
-      } catch (error) { console.error(error); }
+        if(Array.isArray(colecaoGlobal)) {
+          atualizarDashboardEstatisticas(colecaoGlobal);
+          renderizarGrelhaCompleta(colecaoGlobal);
+        }
+      } catch (error) { console.error("Erro a carregar dados:", error); }
     }
 
     function atualizarDashboardEstatisticas(livros) {
@@ -360,12 +334,19 @@
       document.getElementById('stat-pendentes').textContent = livros.filter(l => !l.estado_de_leitura || l.estado_de_leitura === 'Pendente').length;
 
       const temasContagem = {};
-      livros.forEach(l => { const g = l.genero || 'Outro'; temasContagem[g] = (temasContagem[g] || 0) + 1; });
+      livros.forEach(l => { 
+        // A chave no backend pode vir como categorias ou genero dependendo do uso
+        const g = l.categorias || l.genero || 'Geral'; 
+        temasContagem[g] = (temasContagem[g] || 0) + 1; 
+      });
+      
       const containerTemas = document.getElementById('listaTemas');
       containerTemas.innerHTML = '';
-      for (const [tema, qtd] of Object.entries(temasContagem)) {
-        containerTemas.innerHTML += `<span class="px-3 py-1 bg-white border border-stone-200 rounded-full text-xs font-medium text-stone-700 shadow-sm">${tema} (${qtd})</span>`;
-      }
+      Object.entries(temasContagem).slice(0, 15).forEach(([tema, qtd]) => {
+        if(tema.trim() !== '') {
+          containerTemas.innerHTML += `<span class="px-3 py-1 bg-white border border-stone-200 rounded-full text-xs font-medium text-stone-700 shadow-sm">${tema.substring(0,25)} (${qtd})</span>`;
+        }
+      });
 
       const recentes = livros.slice(0, 5);
       const containerRecentes = document.getElementById('grelhaRecentes');
@@ -377,20 +358,22 @@
       recentes.forEach((livro) => {
         const imgH = livro.capa ? `<img src="${livro.capa}" class="w-full h-full object-cover">` : `<span class="text-[10px] text-stone-400 p-2 text-center">S/ Capa</span>`;
         containerRecentes.innerHTML += `
-          <div class="bg-white p-3 rounded-xl border border-stone-200 shadow-sm flex flex-col justify-between">
+          <div class="bg-white p-3 rounded-xl border border-stone-200 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
             <div class="w-full aspect-[2/3] bg-stone-100 rounded-lg overflow-hidden mb-2 flex items-center justify-center">${imgH}</div>
             <h4 class="text-xs font-semibold text-stone-900 truncate">${livro.titulo}</h4>
-            <p class="text-[10px] text-stone-500 truncate mb-2">${livro.autor || ''}</p>
-            <button onclick="abrirModalEditarPorOriginal(${colecaoGlobal.indexOf(livro)})" class="text-[10px] text-brand-600 hover:underline text-left font-medium">Gerir →</button>
+            <p class="text-[10px] text-stone-500 truncate mb-2">${livro.autores || livro.autor || ''}</p>
+            <button onclick="abrirModalEditarPorOriginal(${colecaoGlobal.indexOf(livro)})" class="text-[10px] text-brand-600 hover:underline text-left font-medium">Gerir Obra →</button>
           </div>
         `;
       });
     }
 
     function filtrarLivrosDashboard(termo) {
-      const filtrados = colecaoGlobal.filter(l => (l.titulo + l.autor + (l.isbn||'')).toLowerCase().includes(termo.toLowerCase()));
+      if(!colecaoGlobal) return;
+      const t = termo.toLowerCase();
+      const filtrados = colecaoGlobal.filter(l => ((l.titulo||'') + (l.autores||'') + (l.autor||'') + (l.isbn||'') + (l.isbn13||'')).toLowerCase().includes(t));
       renderizarGrelhaCompleta(filtrados);
-      if(termo.trim() !== '') mudarSeparador('colecao');
+      if(t.trim() !== '') mudarSeparador('colecao');
     }
 
     function renderizarGrelhaCompleta(livros) {
@@ -413,23 +396,23 @@
         const imagemHtml = livro.capa ? `<img src="${livro.capa}" class="w-full h-full object-cover">` : `<span class="text-stone-400 text-[10px] text-center">S/ Capa</span>`;
 
         grelha.innerHTML += `
-          <div class="bg-white p-5 rounded-xl shadow-sm border border-stone-200 flex gap-4">
+          <div class="bg-white p-4 rounded-xl shadow-sm border border-stone-200 flex gap-4 hover:shadow-md transition-shadow">
             <div class="w-20 sm:w-24 shrink-0 aspect-[2/3] bg-stone-100 rounded-lg overflow-hidden border border-stone-200 flex items-center justify-center">${imagemHtml}</div>
             <div class="flex flex-col justify-between flex-grow min-w-0">
               <div>
                 <div class="flex justify-between items-start mb-1 gap-2">
-                  <h3 class="text-sm font-semibold text-stone-900 truncate">${livro.titulo || 'Sem Título'}</h3>
+                  <h3 class="text-sm font-semibold text-stone-900 truncate" title="${livro.titulo}">${livro.titulo || 'Sem Título'}</h3>
                   <span class="px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider ${corEstado} border shrink-0">${livro.estado_de_leitura || 'Pendente'}</span>
                 </div>
-                <p class="text-xs text-stone-500 italic truncate mb-2">${livro.autor || 'Desconhecido'}</p>
-                <p class="text-[11px] text-stone-600 truncate">Género: <span class="font-medium">${livro.genero || '-'}</span></p>
+                <p class="text-xs text-stone-500 italic truncate mb-2">${livro.autores || livro.autor || 'Desconhecido'}</p>
+                <p class="text-[11px] text-stone-600 truncate">Categoria: <span class="font-medium">${livro.categorias || livro.genero || '-'}</span></p>
               </div>
-              <div class="pt-3 border-t border-stone-100 flex justify-between items-center text-xs">
-                <div class="flex gap-2">
-                  <button onclick="abrirModalEditarPorOriginal(${realIndex})" class="text-stone-400 hover:text-brand-600" title="Editar"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg></button>
-                  <button onclick="abrirModalApagarPorOriginal(${realIndex})" class="text-stone-400 hover:text-rose-600" title="Apagar"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
+              <div class="pt-3 border-t border-stone-100 flex justify-between items-center text-xs mt-2">
+                <div class="flex gap-3">
+                  <button onclick="abrirModalEditarPorOriginal(${realIndex})" class="text-stone-400 hover:text-brand-600 flex items-center gap-1" title="Editar"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg></button>
+                  <button onclick="abrirModalApagarPorOriginal(${realIndex})" class="text-stone-400 hover:text-rose-600 flex items-center gap-1" title="Apagar"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
                 </div>
-                <span class="font-semibold text-stone-800">${livro.preco || ''}</span>
+                <span class="font-semibold text-stone-800 text-[10px] uppercase bg-stone-100 px-2 py-1 rounded">${livro.preco || 'S/ Info'}</span>
               </div>
             </div>
           </div>
@@ -462,9 +445,16 @@
 
     function abrirModalEditarPorOriginal(index) {
       const livro = colecaoGlobal[index]; linhaAtiva = livro._linha;
-      ['isbn', 'titulo', 'autor', 'editora', 'preco', 'capa', 'notas'].forEach(k => document.getElementById(`ed_${k}`).value = livro[k] || '');
-      ['genero', 'classificacao'].forEach(k => document.getElementById(`ed_${k}`).value = livro[k] || (k==='classificacao'?'-':''));
-      document.getElementById('ed_estado').value = livro.estado_de_leitura || 'Pendente';
+      
+      document.getElementById('ed_titulo').value = livro.titulo || '';
+      document.getElementById('ed_autores').value = livro.autores || livro.autor || '';
+      document.getElementById('ed_editora').value = livro.editora || '';
+      document.getElementById('ed_categorias').value = livro.categorias || livro.genero || '';
+      document.getElementById('ed_preco').value = livro.preco || 'Disponível';
+      document.getElementById('ed_estado_de_leitura').value = livro.estado_de_leitura || 'Pendente';
+      document.getElementById('ed_classificacao').value = livro.classificacao || '-';
+      document.getElementById('ed_capa').value = livro.capa || '';
+      
       atualizarCapa('ed_capa', 'ed_img_capa', 'ed_txt_capa');
       document.getElementById('modalOverlay').classList.replace('hidden', 'flex');
       document.getElementById('modalEditar').classList.replace('hidden', 'flex');
@@ -473,11 +463,18 @@
     async function confirmarEdicao() {
       const tituloVal = document.getElementById('ed_titulo').value.trim();
       if (!tituloVal) return alert('O título é obrigatório.');
-      const dadosLivro = ['isbn','titulo','autor','editora','preco','capa','genero','classificacao','notas'].reduce((obj, id) => {
-        obj[id] = document.getElementById(`ed_${id}`).value.trim(); return obj;
-      }, {});
-      dadosLivro.estado_de_leitura = document.getElementById('ed_estado').value;
-      dadosLivro.isbn = dadosLivro.isbn.replace(/[-\s]/g, '');
+      
+      // Recolhemos os dados principais para a edição rápida
+      const dadosLivro = {
+        titulo: tituloVal,
+        autores: document.getElementById('ed_autores').value.trim(),
+        editora: document.getElementById('ed_editora').value.trim(),
+        categorias: document.getElementById('ed_categorias').value.trim(),
+        preco: document.getElementById('ed_preco').value,
+        estado_de_leitura: document.getElementById('ed_estado_de_leitura').value,
+        classificacao: document.getElementById('ed_classificacao').value,
+        capa: document.getElementById('ed_capa').value.trim()
+      };
 
       try {
         const res = await chamadorAPI('editar', { linha: linhaAtiva, dados: dadosLivro });
@@ -487,47 +484,70 @@
     }
 
     async function acionarPesquisa() {
-      const isbnVal = document.getElementById('isbn').value.trim();
-      if (!isbnVal) return exibirAlerta('Insere um ISBN.', 'erro');
+      const isbnVal = document.getElementById('isbn_pesquisa').value.trim();
+      if (!isbnVal) return exibirAlerta('Insere um ISBN válido.', 'erro');
+      
       document.getElementById('spinnerPesquisa').classList.remove('hidden');
-      try {
-        const r = await chamadorAPI('pesquisar', { isbn: isbnVal });
-        if (r.titulo) {
-          document.getElementById('titulo').value = r.titulo || '';
-          document.getElementById('autor').value = r.autor || '';
-          document.getElementById('editora').value = r.editora || '';
-          document.getElementById('form_isbn_copia').value = isbnVal;
-          document.getElementById('capa').value = r.capa || '';
-          atualizarCapa('capa', 'img_capa', 'txt_capa');
-          exibirAlerta('Dados encontrados com sucesso!', 'sucesso');
-        } else exibirAlerta('Livro não encontrado automaticamente. Podes preencher manualmente.', 'erro');
-      } catch (e) { exibirAlerta('Erro na pesquisa.', 'erro'); }
-      finally { document.getElementById('spinnerPesquisa').classList.add('hidden'); }
-    }
+      const btnText = document.querySelector('#btnPesquisar span');
+      btnText.textContent = "A pesquisar...";
 
-    async function acionarPesquisaOnline() {
-      const termo = document.getElementById('termoPesquisaOnline').value.trim();
-      if(!termo) return exibirAlerta('Insere um termo para pesquisar.', 'erro');
-      // Simula uma busca pelo critério selecionado
-      acionarPesquisa();
+      try {
+        const livro = await chamadorAPI('pesquisar', { isbn: isbnVal });
+        
+        if (livro && livro.titulo) {
+          const camposMapeados = [
+            'titulo', 'subtitulo', 'autores', 'tradutor', 'ilustrador', 'colecao', 'volume', 
+            'edicao', 'editora', 'local_edicao', 'ano', 'paginas', 'idioma', 'isbn13', 'isbn10', 
+            'categorias', 'peso', 'altura', 'largura', 'espessura', 'capa', 'descricao'
+          ];
+          
+          camposMapeados.forEach(id => {
+            if (document.getElementById(id)) {
+              document.getElementById(id).value = livro[id] || '';
+            }
+          });
+
+          // Fallback para ISBN caso n venha preenchido 10/13
+          if(!document.getElementById('isbn13').value && isbnVal.length === 13) document.getElementById('isbn13').value = isbnVal;
+          if(!document.getElementById('isbn10').value && isbnVal.length === 10) document.getElementById('isbn10').value = isbnVal;
+
+          atualizarCapa('capa', 'img_capa', 'txt_capa');
+          exibirAlerta('Obra encontrada em bases de dados online!', 'sucesso');
+        } else {
+          exibirAlerta('Informação não encontrada. Podes preencher os dados manualmente abaixo.', 'erro');
+          // Limpa mas mantém o ISBN para o utilizador gravar manualmente
+          if(isbnVal.length === 13) document.getElementById('isbn13').value = isbnVal;
+        }
+      } catch (e) { 
+        exibirAlerta('Aconteceu um erro ao tentar comunicar com o servidor.', 'erro'); 
+      } finally { 
+        document.getElementById('spinnerPesquisa').classList.add('hidden');
+        btnText.textContent = "Pesquisar ISBN";
+      }
     }
 
     async function acionarGravacao() {
       const tituloVal = document.getElementById('titulo').value.trim();
-      if (!tituloVal) return exibirAlerta('O título é obrigatório.', 'erro');
+      if (!tituloVal) return exibirAlerta('O Título é de preenchimento obrigatório.', 'erro');
       
-      const dados = {
-        isbn: (document.getElementById('form_isbn_copia').value || document.getElementById('isbn').value).replace(/[-\s]/g, ''),
-        titulo: tituloVal,
-        autor: document.getElementById('autor').value.trim(),
-        editora: document.getElementById('editora').value.trim(),
-        preco: document.getElementById('preco').value,
-        capa: document.getElementById('capa').value.trim(),
-        genero: document.getElementById('genero').value,
-        estado_de_leitura: document.getElementById('estado').value,
-        classificacao: document.getElementById('classificacao').value,
-        notas: (document.getElementById('sinopse').value + ' | ' + document.getElementById('notas').value).trim()
-      };
+      const chavesRequisitadas = [
+        'titulo', 'subtitulo', 'autores', 'tradutor', 'ilustrador', 'editora', 'local_edicao', 
+        'ano', 'paginas', 'colecao', 'volume', 'edicao', 'idioma', 'isbn13', 'isbn10', 
+        'categorias', 'peso', 'altura', 'largura', 'espessura', 'capa', 'descricao'
+      ];
+
+      const dados = {};
+      chavesRequisitadas.forEach(id => {
+        if(document.getElementById(id)) dados[id] = document.getElementById(id).value.trim();
+      });
+
+      // Campos de Seleção Dropdown
+      dados.preco = document.getElementById('preco').value; // Usado para "Disponibilidade"
+      dados.estado_de_leitura = document.getElementById('estado').value;
+      dados.classificacao = document.getElementById('classificacao').value;
+
+      // Determinar um ISBN de chave primária para a tabela (13 é preferido)
+      dados.isbn = (dados.isbn13 || dados.isbn10 || document.getElementById('isbn_pesquisa').value).replace(/[-\s]/g, '');
 
       document.getElementById('spinnerGravar').classList.remove('hidden');
       try {
@@ -535,10 +555,11 @@
         if (r.sucesso) {
           exibirAlerta(r.mensagem, 'sucesso');
           document.getElementById('formLivro').reset();
+          document.getElementById('isbn_pesquisa').value = '';
           atualizarCapa('capa', 'img_capa', 'txt_capa');
           setTimeout(() => mudarSeparador('inicio'), 1000);
         } else exibirAlerta(r.mensagem, 'erro');
-      } catch (e) { exibirAlerta('Erro ao gravar.', 'erro'); }
+      } catch (e) { exibirAlerta('Erro crítico ao gravar dados na folha.', 'erro'); }
       finally { document.getElementById('spinnerGravar').classList.add('hidden'); }
     }
   </script>
